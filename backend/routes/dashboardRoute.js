@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const RendezVous = require('../model/rendezVousModel');
-// Créer un article
+// Créer un rdv
 router.post('/', async (req, res) => {
     try {
         const rdv = new RendezVous(req.body);
@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-// Lire tous les articles
+// Lire tous les rdv
 router.get('/', async (req, res) => {
     try {
         const rdv = await RendezVous.find();
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Mettre à jour un article
+// Mettre à jour  rdv
 router.put('/:id', async (req, res) => {
     try {
         const rdv = await RendezVous.findByIdAndUpdate(req.params.id,
@@ -31,7 +31,7 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-// Supprimer un article
+// Supprimer rdv
 router.delete('/:id', async (req, res) => {
     try {
         await RendezVous.findByIdAndDelete(req.params.id);

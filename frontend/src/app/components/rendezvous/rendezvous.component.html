@@ -1,0 +1,122 @@
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-8 d-flex justify-content-between align-items-center p-3 border rounded m-3">
+            <div>
+                <h2>Dashboard</h2>
+                <p>
+                    Vous trouverez ici la liste de vos rendez-vous, une messagerie pour communiquer aux clients,
+                    demander des pièces à votre manager, et gérer votre emploi du temps
+                </p>
+                <a class="btn btn-primary btn-lg">To do list</a>
+            </div>
+            <div style="width: auto;">
+                <img src="../../../assets/illustration_car.svg" style="width: 250px;">
+            </div>
+        </div>
+        <div class="col-3 justify-content-center align-items-center p-3 border rounded m-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="../../../assets/avatar.svg" alt="" width="100px">
+                <div class="m-1">
+                    <h4>Tino Adriamirija</h4>
+                    <p>Mécanicien</p>
+                </div>
+                
+            </div>
+            <p>
+                <strong>Réparation finie: </strong> 18
+            </p>
+            <p>
+                <strong>
+                    Réparation en cours:
+                </strong>
+                4
+            </p>
+            <a class="btn btn-outline-primary w-100">Historiques de réparation</a>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="navId" role="tablist">
+            <li class="nav-item">
+                <a href="#tab1Id" class="nav-link active" data-bs-toggle="tab" aria-current="page">Rendez-vous</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="#tab5Id" class="nav-link" data-bs-toggle="tab">Demande pièces</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="#" class="nav-link" data-bs-toggle="tab">Message</a>
+            </li>
+        </ul>
+        <div class="container mt-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Boutons filtres -->
+                <div class="d-flex gap-2">
+                    <!-- Dropdown 7 prochains jours -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown">
+                            7 prochains jours
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Aujourd'hui</a></li>
+                            <li><a class="dropdown-item" href="#">Cette semaine</a></li>
+                            <li><a class="dropdown-item" href="#">Ce mois-ci</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Dropdown Trier par date -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown">
+                            Trier par date
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Du plus récent au plus ancien</a></li>
+                            <li><a class="dropdown-item" href="#">Du plus ancien au plus récent</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Champ de recherche -->
+                <div class="w-50">
+                    <input type="text" class="form-control" placeholder="Rechercher par type d’activité ou par nom">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-borderless align-middle mt-3">
+                <thead class="table-light">
+                    <caption>
+                        Rendez-vous
+                    </caption>
+                    <tr>
+
+                        <th>Date et heure</th>
+                        <th>Voiture</th>
+                        <th>Propriétaire</th>
+                        <th>Service</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr *ngFor="let rdv of rdvList" class="table-light">
+
+                        <td scope="row">{{ rdv.date | date: 'dd MMMM yyyy' }}({{rdv.heure}})</td>
+                        <td>{{rdv.voiture}}</td>
+                        <td>{{rdv.proprietaire}}</td>
+                        <td>{{rdv.service}}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary">Approuver</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
