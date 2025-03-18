@@ -1,0 +1,108 @@
+.login-container {
+  max-width: 420px;
+  width: 100%;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  padding: 25px;
+}
+
+.btn-primary {
+  background-color: #0abab5;
+  background-color: #0abab5 !important;
+  border-color: #0abab5 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #088f8a !important;
+  border-color: #088f8a !important;
+}
+
+.form-control:focus {
+  border-color: #0abab5;
+  box-shadow: 0 0 0 0.25rem rgba(10, 186, 181, 0.25);
+}
+
+.text-primary {
+  color: #0abab5 !important;
+}
+
+.role-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.role-option {
+  position: relative;
+  flex: 1;
+}
+
+.role-option input {
+  position: absolute;
+  opacity: 0;
+}
+
+.role-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.role-label i {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.role-option {
+  width: 100px;
+}
+
+.role-option input:checked+.role-label {
+  background-color: #b2e8e6;
+  color: #0abab5;
+  font-weight: 600;
+}
+
+.logo-container {
+  height: 70px;
+  width: 70px;
+  margin: 0 auto 15px;
+  background-color: rgba(10, 186, 181, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  color: #0abab5;
+  font-size: 30px;
+}
+
+a {
+  color: #0abab5;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #088f8a;
+  text-decoration: underline;
+}
