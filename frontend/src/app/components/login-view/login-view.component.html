@@ -15,7 +15,7 @@
           Identifiant ou mot de passe incorrect. Veuillez réessayer.
         </div>
 
-        <form [formGroup]="applyForm" (submit)="loginMethod()">
+        <form [formGroup]="applyForm" (submit)="login()">
           <div class="role-selector mb-4">
             <div class="role-option">
               <input type="radio" class="form-check-input" name="role" id="client" value="client" checked

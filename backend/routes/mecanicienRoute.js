@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs')
 const Mecanicien = require('../model/mecanicienModel');
+const validationResult= require('express-validator')
+const jwt= require('jsonwebtoken')
 
 //Créer un mécanicien
 router.post('/register', async (req, res) => {
@@ -90,25 +93,25 @@ router.get('/:param', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
-// router.post('/register', async (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+router.post('/login', async (req, res) => {
+    // console.log("Login route")
+    try {
+        const { email, mdp } = req.body;
+        const meca = await Mecanicien.findOne({ email });
+        if (!meca) return res.status(400).json({ msg: 'Mécanicien non trouvé' });
 
-//     try {
-//         const { email, mdp } = req.body;
-//         const meca = await Mecanicien.findOne({ email });
-//         if (!meca) return res.status(400).json({ msg: 'Mécanicien non trouvé' });
+        const isMatch = await bcrypt.compare(mdp, meca.mdp);
+        if (!isMatch) return res.status(400).json({ msg: 'Mot de passe incorrect' });
 
-//         const isMatch = await bcrypt.compare(mdp, meca.mdp);
-//         if (!isMatch) return res.status(400).json({ msg: 'Mot de passe incorrect' });
+        const token = jwt.sign({ id: meca._id }, 'SECRET_KEY', { expiresIn: '1h' });
+        res.json({ token, meca: { id: meca._id, nomComplet: meca.nomComplet, email: meca.email } });
+        // console.log(token)
+    } catch (error) {
+        console.log("Erreur")
+        res.status(500).json({ msg: 'Erreur serveur' });
+    }
+});
 
-
-//         const token = jwt.sign({ id: meca._id }, 'SECRET_KEY', { expiresIn: '1h' });
-//         res.json({ token, meca: { id: meca._id, nomComplet: meca.nomComplet, email: meca.email } });
-//     } catch (error) {
-//         res.status(500).json({ msg: 'Erreur serveur' });
-//     }
-// });
 
 
 module.exports = router;
