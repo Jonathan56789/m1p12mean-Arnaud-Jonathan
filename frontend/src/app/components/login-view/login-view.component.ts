@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MecanicienServiceService } from '../../services/mecanicien-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-view',
@@ -11,7 +12,10 @@ import { MecanicienServiceService } from '../../services/mecanicien-service.serv
 })
 export class LoginViewComponent {
 
-  mecanicienService: MecanicienServiceService = inject(MecanicienServiceService);
+  // mecanicienService: MecanicienServiceService = inject(MecanicienServiceService);
+  // router: Router = inject(Router)
+
+  constructor(private mecanicienService: MecanicienServiceService,private router: Router){}
 
   applyForm: FormGroup = new FormGroup({
     role: new FormControl(''),
@@ -19,12 +23,19 @@ export class LoginViewComponent {
     mdp: new FormControl('')
   })
 
-  loginMethod() {
-    if (this.applyForm.value.role == "mechanic") {
-      console.log("mécanicien")
+  login() {
+    if (this.applyForm.value.role == 'mechanic') {
+      this.mecanicienService.login(this.applyForm.value.email, this.applyForm.value.mdp).subscribe(
+        res => {
+          this.mecanicienService.saveToken(res.token);
+          this.router.navigate(['dashboard'])
+        },
+        err => {
+          // Affichage de l'erreur
+        }
+      );
+      // console.log("Mécanicien")
     }
-    else {
-      console.log("Autre")
-    }
+
   }
 }
