@@ -1,14 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs';
+import Swal from 'sweetalert2';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MecanicienServiceService {
-  private apiUrl = 'http://localhost:5000/mecanicien'
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:5000/mecanicien';
+
+  private userSubject = new BehaviorSubject<any>(null);
+  user$ = this.userSubject.asObservable();
+
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformID: object) {
+    if (isPlatformBrowser(this.platformID)) {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        this.userSubject.next(JSON.parse(storedUser));
+      }
+    }
+  }
+
 
   // Lire touts les mécaniciens
   getAllMecanicien(): Observable<any> {
@@ -30,20 +44,34 @@ export class MecanicienServiceService {
     return this.http.delete(this.apiUrl, meca)
   }
 
-  //Login mécanicien
   login(email: string, mdp: string): Observable<any> {
-    // console.log("Login service")
-    return this.http.post<{token: any, meca: any}>(`${this.apiUrl}/login`, { email, mdp }).pipe(
-      tap(res => {
-        localStorage.setItem('token', res.token); // 🔥 Stocke le token JWT
-        localStorage.setItem('user', JSON.stringify(res.meca)); // 🔥 Stocke les infos du mécanicien
+    return this.http.post<{ token: any, meca: any }>(`${this.apiUrl}/login`, { email, mdp }).pipe(
+      tap({
+        next: (res) => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.meca));
+          this.userSubject.next(res.meca)
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: error.error.msg,
+          });
+        }
       })
     );
   }
 
+
   // Méthode pour stocker et récupérer le token JWT
   saveToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  saveUser(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.userSubject.next(user);
   }
 
   getToken(): string | null {
@@ -52,16 +80,20 @@ export class MecanicienServiceService {
 
   // Vérifie si l'utilisateur est connecté
   isAuthenticated(): boolean {
-    return !!this.getToken(); // Renvoie true si un token existe
+    const token = localStorage.getItem('token');
+    console.log("🔍 Vérification du token :", token);
+    return !!token; 
   }
-  getUser(): any {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null; 
+
+
+  getUser() {
+    return this.userSubject.value;
   }
 
   // Déconnexion
   logout(): void {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    // localStorage.removeItem('user');
+    // localStorage.removeItem('token');
+    localStorage.clear(); 
   }
 }

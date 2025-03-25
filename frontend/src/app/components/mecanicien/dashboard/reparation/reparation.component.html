@@ -1,0 +1,375 @@
+<!-- Contenu Réparation -->
+<div id="reparation" class="content">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0"><i class="fas fa-wrench me-2"></i>Gestion des Réparations</h4>
+            <p class="mb-0">Vue d'ensemble des réparations passées, en cours et futures</p>
+        </div>
+        <div>
+            <button class="btn btn-light me-2">
+                <i class="fas fa-plus me-2"></i>Nouvelle réparation
+            </button>
+            <button class="btn btn-light">
+                <i class="fas fa-filter me-2"></i>Filtres
+            </button>
+        </div>
+    </div>
+
+    <!-- Section 1: Réparations terminées -->
+    <div class="section-card">
+        <div
+            class="section-header bg-success bg-opacity-10 d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-check-circle text-success me-2"></i>Réparations terminées (dernière
+                semaine)
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-print me-1"></i>Imprimer
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="Rechercher une réparation...">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div>
+                <select class="form-select form-select-sm">
+                    <option selected>Trier par date</option>
+                    <option>Trier par type</option>
+                    <option>Trier par client</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="repair-item completed">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Vidange complète et remplacement filtres</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Peugeot 308
+                                (AA-123-BB)</span>
+                            <span><i class="fas fa-user me-1"></i>Marie Leroy</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-check me-1"></i>Terminé le
+                            21/03/2025</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée: 1h 15min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span
+                            class="status-badge bg-success text-white mb-2 d-inline-block">Terminé</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-file-alt me-1"></i>Rapport</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item completed">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Remplacement pompe à eau et courroie de distribution
+                        </div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Renault Megane
+                                (BB-456-CC)</span>
+                            <span><i class="fas fa-user me-1"></i>Pierre Dubois</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-check me-1"></i>Terminé le
+                            20/03/2025</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée: 3h 30min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span
+                            class="status-badge bg-success text-white mb-2 d-inline-block">Terminé</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-file-alt me-1"></i>Rapport</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item completed">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Diagnostic électronique et réparation système ABS
+                        </div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>BMW X5 (CC-789-DD)</span>
+                            <span><i class="fas fa-user me-1"></i>Sophie Martin</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-check me-1"></i>Terminé le
+                            19/03/2025</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée: 2h 45min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span
+                            class="status-badge bg-success text-white mb-2 d-inline-block">Terminé</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-file-alt me-1"></i>Rapport</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Réparations en cours -->
+    <div class="section-card">
+        <div
+            class="section-header bg-warning bg-opacity-10 d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-cog fa-spin text-warning me-2"></i>Réparations en cours
+            </div>
+            <div>
+                <button class="btn btn-sm btn-warning">
+                    <i class="fas fa-tasks me-1"></i>Voir planning
+                </button>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="repair-item in-progress">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Changement plaquettes et disques de frein</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Renault Clio
+                                (DD-234-EE)</span>
+                            <span><i class="fas fa-user me-1"></i>Jean Dupont</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar me-1"></i>Commencé le 22/03/2025
+                        </div>
+                        <div><i class="fas fa-clock me-1"></i>Estimé: 2h 00min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-warning text-dark mb-2 d-inline-block">En cours
+                            (75%)</span>
+                        <div class="progress mb-2" style="height: 6px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 75%"
+                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-success action-btn"><i
+                                    class="fas fa-check me-1"></i>Terminer</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item in-progress">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Réparation système de climatisation</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Audi A4 (EE-567-FF)</span>
+                            <span><i class="fas fa-user me-1"></i>Lucie Moreau</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar me-1"></i>Commencé le 22/03/2025
+                        </div>
+                        <div><i class="fas fa-clock me-1"></i>Estimé: 3h 30min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-warning text-dark mb-2 d-inline-block">En cours
+                            (40%)</span>
+                        <div class="progress mb-2" style="height: 6px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-success action-btn"><i
+                                    class="fas fa-check me-1"></i>Terminer</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item in-progress">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Réparation système de freinage</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Mercedes Classe C
+                                (FF-890-GG)</span>
+                            <span><i class="fas fa-user me-1"></i>Bernard Leclercq</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar me-1"></i>Commencé le 22/03/2025
+                        </div>
+                        <div><i class="fas fa-exclamation-triangle text-danger me-1"></i>Urgent -
+                            Attente pièces</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-danger text-white mb-2 d-inline-block">Attente
+                            pièces</span>
+                        <div class="progress mb-2" style="height: 6px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-truck me-1"></i>Pièces</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Réparations planifiées -->
+    <div class="section-card">
+        <div
+            class="section-header bg-secondary bg-opacity-10 d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-calendar-alt text-secondary me-2"></i>Réparations planifiées
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-calendar-plus me-1"></i>Planifier
+                </button>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="repair-item planned">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Remplacement batterie</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Audi A3 (GG-123-HH)</span>
+                            <span><i class="fas fa-user me-1"></i>Thomas Petit</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-alt me-1"></i>Planifié pour
+                            22/03/2025 - 14:30</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée estimée: 45min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-secondary text-white mb-2 d-inline-block">Planifié
+                            aujourd'hui</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-warning action-btn"><i
+                                    class="fas fa-play me-1"></i>Démarrer</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item planned">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Remplacement alternateur</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Toyota Yaris
+                                (HH-456-II)</span>
+                            <span><i class="fas fa-user me-1"></i>Céline Moreau</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-alt me-1"></i>Planifié pour
+                            23/03/2025 - 09:00</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée estimée: 2h 00min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-secondary text-white mb-2 d-inline-block">Planifié
+                            demain</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-danger action-btn"><i
+                                    class="fas fa-calendar-times me-1"></i>Reporter</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item planned">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Révision complète 30 000 km</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Citroen C4
+                                (II-789-JJ)</span>
+                            <span><i class="fas fa-user me-1"></i>Vincent Martin</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-alt me-1"></i>Planifié pour
+                            25/03/2025 - 10:15</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée estimée: 3h 00min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-info text-white mb-2 d-inline-block">À venir</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-phone me-1"></i>Contact</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repair-item planned">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">Changement de pneus (été)</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>Volkswagen Golf
+                                (JJ-012-KK)</span>
+                            <span><i class="fas fa-user me-1"></i>Paul Dupuis</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-alt me-1"></i>Planifié pour
+                            27/03/2025 - 14:00</div>
+                        <div><i class="fas fa-clock me-1"></i>Durée estimée: 1h 00min</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-info text-white mb-2 d-inline-block">À venir</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-phone me-1"></i>Contact</button>
+                            <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
