@@ -8,7 +8,14 @@ const Appointment = require('../models/appointmentModel');
 const Repair = require('../models/repairModel');
 const Quote = require('../models/quoteModel');
 const Notification = require('../models/notificationModel');
+const multer = require('multer');
+
 //const nodemailer = require('nodemailer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({ storage });
 
 // Middleware pour vérifier le token JWT
 const auth = (req, res, next) => {
@@ -100,5 +107,30 @@ router.get('/notifications', auth, async (req, res) => {
   const notifications = await Notification.find({ clientId: req.clientId }).sort({ date: -1 });
   res.json(notifications);
 });
+// Nouvelle route pour récupérer les devis
+router.get('/quotes', auth, async (req, res) => {
+  const quotes = await Quote.find({ clientId: req.clientId }).sort({ date: -1 });
+  res.json(quotes);
+});
 
+// Route mise à jour pour gérer les fichiers
+router.post('/quote', auth, upload.array('attachments', 5), async (req, res) => {
+  const { description } = req.body;
+  const attachments = req.files.map(file => file.path);
+
+  const quote = new Quote({
+    clientId: req.clientId,
+    description,
+    attachments,
+  });
+  await quote.save();
+
+  // Notification
+  await new Notification({
+    clientId: req.clientId,
+    message: 'Demande de devis enregistrée',
+  }).save();
+
+  res.json({ message: 'Demande de devis soumise', quote });
+});
 module.exports = router;

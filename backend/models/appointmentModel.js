@@ -6,6 +6,7 @@ const appointmentSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   serviceType: { type: String, required: true },
   confirmed: { type: Boolean, default: false },
+  details: { type: String }, // Optionnel : pour des notes supplémentaires
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);
