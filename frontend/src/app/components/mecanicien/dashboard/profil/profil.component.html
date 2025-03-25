@@ -1,0 +1,299 @@
+<!-- Contenu Profile -->
+<div id="profile" class="content">
+
+
+    <!-- En-tête du profil avec photo et nom -->
+    <div class="profile-header d-flex flex-column align-items-center text-center">
+        <div class="position-relative">
+            <img src="/api/placeholder/150/150" alt="Photo de profil" class="profile-pic">
+            <button class="btn btn-sm btn-light rounded-circle position-absolute bottom-0 end-0"
+                data-bs-toggle="modal" data-bs-target="#editPhotoModal">
+                <i class="fas fa-camera"></i>
+            </button>
+        </div>
+        <div class="profile-name d-flex align-items-center">
+            Jean Dupont
+            <i class="fas fa-edit edit-icon" data-bs-toggle="modal"
+                data-bs-target="#editProfileModal"></i>
+        </div>
+        <p class="text-white-50 mb-1">Mécanicien senior</p>
+        <p class="text-white-50">ID: #MEC-2023-485</p>
+    </div>
+
+    <!-- Statistiques -->
+    <h4 class="section-title">Statistiques et performance</h4>
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-value">247</div>
+                <div class="stat-label">Réparations terminées</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-value">4.8</div>
+                <div class="stat-label">Évaluation moyenne</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon">
+                    <i class="fas fa-business-time"></i>
+                </div>
+                <div class="stat-value">97%</div>
+                <div class="stat-label">Respect des délais</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="stat-value">3.5</div>
+                <div class="stat-label">Années d'expérience</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informations personnelles -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0 text-turquoise">
+                        Informations personnelles
+                        <i class="fas fa-edit edit-icon float-end" data-bs-toggle="modal"
+                            data-bs-target="#editInfoModal"></i>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4 text-muted">Email:</div>
+                        <div class="col-sm-8">jean.dupont.garage.fr</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 text-muted">Téléphone:</div>
+                        <div class="col-sm-8">06 12 34 56 78</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 text-muted">Date d'embauche:</div>
+                        <div class="col-sm-8">15/06/2021</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 text-muted">Adresse:</div>
+                        <div class="col-sm-8">123 Rue de la Mécanique, 75001 Paris</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compétences -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0 text-turquoise">
+                        Spécialisations et compétences
+                        <i class="fas fa-edit edit-icon float-end" data-bs-toggle="modal"
+                            data-bs-target="#editSkillsModal"></i>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <span class="badge badge-turquoise p-2 m-1">Moteur diesel</span>
+                    <span class="badge badge-turquoise p-2 m-1">Systèmes électriques</span>
+                    <span class="badge badge-turquoise p-2 m-1">Diagnostics informatiques</span>
+                    <span class="badge badge-turquoise p-2 m-1">Transmission</span>
+                    <span class="badge badge-turquoise p-2 m-1">Freinage</span>
+                    <span class="badge badge-turquoise p-2 m-1">Hybride</span>
+                    <span class="badge badge-turquoise p-2 m-1">Climatisation</span>
+                    <span class="badge badge-turquoise p-2 m-1">Véhicules allemands</span>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="card mt-3">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0 text-turquoise">
+                        Certifications
+                        <i class="fas fa-edit edit-icon float-end" data-bs-toggle="modal"
+                            data-bs-target="#editCertificationsModal"></i>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Certification BMW niveau 2</span>
+                        <span class="text-muted">2022</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Diagnostic électronique avancé</span>
+                        <span class="text-muted">2021</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Technicien véhicules hybrides</span>
+                        <span class="text-muted">2023</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modaux pour édition -->
+    <!-- Modal Édition Photo -->
+    <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier photo de profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="profilePhoto" class="form-label">Sélectionner une nouvelle
+                            photo</label>
+                        <input class="form-control" type="file" id="profilePhoto">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-turquoise">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Édition Profil -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nomPrenom" class="form-label">Nom et prénom</label>
+                        <input type="text" class="form-control" id="nomPrenom" value="Jean Dupont">
+                    </div>
+                    <div class="mb-3">
+                        <label for="poste" class="form-label">Poste</label>
+                        <input type="text" class="form-control" id="poste" value="Mécanicien senior">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-turquoise">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Édition Informations personnelles -->
+    <div class="modal fade" id="editInfoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier informations personnelles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email"
+                            value="jean.dupont@garage.fr">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telephone" class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control" id="telephone" value="06 12 34 56 78">
+                    </div>
+                    <div class="mb-3">
+                        <label for="adresse" class="form-label">Adresse</label>
+                        <input type="text" class="form-control" id="adresse"
+                            value="123 Rue de la Mécanique, 75001 Paris">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-turquoise">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Édition Compétences -->
+    <div class="modal fade" id="editSkillsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier compétences</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="skills" class="form-label">Compétences (séparées par des
+                            virgules)</label>
+                        <textarea class="form-control" id="skills"
+                            rows="3">Moteur diesel, Systèmes électriques, Diagnostics informatiques, Transmission, Freinage, Hybride, Climatisation, Véhicules allemands</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-turquoise">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Édition Certifications -->
+    <div class="modal fade" id="editCertificationsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifier certifications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Certification 1</label>
+                        <input type="text" class="form-control mb-2" value="Certification BMW niveau 2">
+                        <input type="text" class="form-control" placeholder="Année" value="2022">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Certification 2</label>
+                        <input type="text" class="form-control mb-2"
+                            value="Diagnostic électronique avancé">
+                        <input type="text" class="form-control" placeholder="Année" value="2021">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Certification 3</label>
+                        <input type="text" class="form-control mb-2"
+                            value="Technicien véhicules hybrides">
+                        <input type="text" class="form-control" placeholder="Année" value="2023">
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">+ Ajouter une
+                        certification</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-turquoise">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

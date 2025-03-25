@@ -1,76 +1,75 @@
+<div class="container login-container">
+  <div class="card border m-2">
+    <div class="card-header">
+      <div class="logo-container">
+        <i class="bi bi-clock-history logo-icon"></i>
+      </div>
+      <h3 class="text-primary mb-1">Garage Auto Service</h3>
+      <p class="text-muted small">Connectez-vous pour accéder à votre espace</p>
+    </div>
 
-
-  <div class="container login-container">
-    <div class="card border m-2">
-      <div class="card-header">
-        <div class="logo-container">
-          <i class="bi bi-clock-history logo-icon"></i>
-        </div>
-        <h3 class="text-primary mb-1">Garage Auto Service</h3>
-        <p class="text-muted small">Connectez-vous pour accéder à votre espace</p>
+    <div class="card-body p-4">
+      <div class="alert alert-danger d-none" id="error-message" role="alert">
+        Identifiant ou mot de passe incorrect. Veuillez réessayer.
       </div>
 
-      <div class="card-body p-4">
-        <div class="alert alert-danger d-none" id="error-message" role="alert">
-          Identifiant ou mot de passe incorrect. Veuillez réessayer.
+      <form [formGroup]="applyForm" (submit)="login()">
+        <div class="role-selector mb-4">
+          <div class="role-option">
+            <input type="radio" class="form-check-input" name="role" id="client" value="client" checked
+              formControlName="role">
+            <label for="client" class="role-label">
+              <i class="bi bi-person"></i>
+              Client
+            </label>
+          </div>
+          <div class="role-option">
+            <input type="radio" class="form-check-input" name="role" id="mechanic" value="mechanic"
+              formControlName="role">
+            <label for="mechanic" class="role-label">
+              <i class="bi bi-wrench"></i>
+              Mécanicien
+            </label>
+          </div>
+          <div class="role-option">
+            <input type="radio" class="form-check-input" name="role" id="manager" value="manager"
+              formControlName="role">
+            <label for="manager" class="role-label">
+              <i class="bi bi-briefcase"></i>
+              Manager
+            </label>
+          </div>
+          <small class="text-danger" *ngIf="applyForm.get('role')?.touched && applyForm.get('role')?.invalid">
+            ⚠️ Rôle requis
+          </small>
         </div>
 
-        <form [formGroup]="applyForm" (submit)="login()">
-          <div class="role-selector mb-4">
-            <div class="role-option">
-              <input type="radio" class="form-check-input" name="role" id="client" value="client" checked
-                formControlName="role">
-              <label for="client" class="role-label">
-                <i class="bi bi-person"></i>
-                Client
-              </label>
-            </div>
-            <div class="role-option">
-              <input type="radio" class="form-check-input" name="role" id="mechanic" value="mechanic"
-                formControlName="role">
-              <label for="mechanic" class="role-label">
-                <i class="bi bi-wrench"></i>
-                Mécanicien
-              </label>
-            </div>
-            <div class="role-option">
-              <input type="radio" class="form-check-input" name="role" id="manager" value="manager"
-                formControlName="role">
-              <label for="manager" class="role-label">
-                <i class="bi bi-briefcase"></i>
-                Manager
-              </label>
-            </div>
-          </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Votre adresse email" required
+            formControlName="email">
+          <small class="text-danger" *ngIf="applyForm.get('email')?.touched && applyForm.get('email')?.invalid">
+           {{ applyForm.get('email')?.hasError('required') ? 'Email requis' : 'Email invalide' }}
+          </small>
+        </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Votre adresse email" required
-              formControlName="email">
-          </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Votre mot de passe"
+            required formControlName="mdp">
+          <small class="text-danger" *ngIf="applyForm.get('mdp')?.touched && applyForm.get('mdp')?.invalid">
+           {{ applyForm.get('mdp')?.hasError('required') ? 'Mot de passe requis' : 'Minimum 6 caractères' }}
+          </small>
+        </div>
 
-          <div class="mb-3">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Votre mot de passe"
-              required formControlName="mdp">
-          </div>
+        <div class="mb-3 text-end">
+          <a href="#" class="small">Mot de passe oublié?</a>
+        </div>
 
-          <div class="mb-3 text-end">
-            <a href="#" class="small">Mot de passe oublié?</a>
-          </div>
-
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Se connecter</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- <div class="card-footer bg-white text-center py-3">
-              <p class="mb-0">Vous n'avez pas de compte? <a href="#">S'inscrire</a></p>
-            </div> -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="applyForm.invalid">Se connecter</button>
+        </div>
+      </form>
     </div>
   </div>
-
-
-
-
+</div>
