@@ -27,19 +27,19 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path:'dashboard', 
-        component: DashboardComponent, 
+        path: 'dashboard',
+        component: DashboardComponent,
         //canActivate: [AuthGard], 
         title: "Dashboard - mécanicien"
     },
     {
-        path:'dashboard-client',
-        component:DashboardClientComponent,
-        canActivate: [AuthGard], 
-        title:"Dashboard-Client",
-        children:[
+        path: 'dashboard-client',
+        component: DashboardClientComponent,
+        canActivate: [AuthGard],
+        title: "Dashboard-Client",
+        children: [
             { path: '', redirectTo: 'overview', pathMatch: 'full' },
-            { path: 'overview', component: OverviewComponent,title:'apercu' },
+            { path: 'overview', component: OverviewComponent, title: 'apercu' },
             { path: 'vehicle', component: VehicleStatusComponent, title: 'État du véhicule' },
             { path: 'appointments', component: AppointmentsComponent, title: 'Rendez-vous' },
             { path: 'history', component: HistoryComponent, title: 'Historique' },
@@ -48,6 +48,7 @@ export const routes: Routes = [
             { path: 'my-vehicle', component: MyVehicleComponent, title: 'Mes Vehicules' },
         ]
     },
+    {
         path: 'mecanicien/dashboard',
         component: DashboardComponent,
         canActivate: [AuthGard],
