@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot} from '@angular/router';
-import { MecanicienServiceService } from '../services/mecanicien-service.service';
+import { MecanicienServiceService } from '../services/mecanicien/mecanicien-service.service';
 import { inject, Injectable } from '@angular/core';
 
 @Injectable({
