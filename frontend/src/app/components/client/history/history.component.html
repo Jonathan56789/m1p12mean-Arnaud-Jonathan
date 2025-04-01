@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- <app-sidebar></app-sidebar> -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Historique des interventions</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-printer"></i> Imprimer tout
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header bg-white">
+          <h5 class="card-title mb-0">Liste des réparations passées</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type de service</th>
+                  <th>Coût</th>
+                  <th>Facture</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let repair of repairs">
+                  <td>{{ repair.date | date:'dd MMMM yyyy' }}</td>
+                  <td>{{ repair.serviceType }}</td>
+                  <td>{{ repair.cost }} €</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" (click)="downloadInvoice(repair.invoice)" *ngIf="repair.invoice">
+                      <i class="bi bi-download me-1"></i> Télécharger
+                    </button>
+                    <span class="text-muted" *ngIf="!repair.invoice">Non disponible</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="repairs.length === 0" class="text-center text-muted">
+            Aucune intervention passée pour le moment.
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

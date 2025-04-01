@@ -1,0 +1,124 @@
+/* Style général pour la carte */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #fff;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  /* Style pour le titre et le badge */
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  
+  .badge.bg-warning {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+  }
+  
+  /* Style pour la barre de progression (status-line et status-circle) */
+  .vehicle-status {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  
+  .status-line {
+    position: absolute;
+    top: 20px;
+    left: 15%;
+    right: 15%;
+    height: 4px;
+    background-color: #e0e0e0;
+    z-index: 1;
+  }
+  
+  .status-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .status-circle i {
+    font-size: 1.25rem;
+    color: #fff;
+  }
+  
+  .status-circle.completed {
+    background-color: #28a745;
+    border: 2px solid #28a745;
+  }
+  
+  .status-circle.active {
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2);
+  }
+  
+  .vehicle-status .text-center .small {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+  }
+  
+  /* Style pour la ligne de connexion entre les cercles */
+  .vehicle-status .d-flex {
+    position: relative;
+  }
+  
+  /* Style pour les détails de l’intervention */
+  h6 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-body p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style pour les informations supplémentaires (date et technicien) */
+  .text-muted {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+  
+  .card-body .row p {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 0;
+  }
+  
+  .card-body .row i {
+    color: #007bff;
+    margin-right: 0.5rem;
+  }

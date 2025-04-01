@@ -1,13 +1,16 @@
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot} from '@angular/router';
 import { MecanicienServiceService } from '../services/mecanicien-service.service';
-import { inject } from '@angular/core';
-
+import { inject ,Injectable} from '@angular/core';
+import { AuthService } from '../services/auth.service';
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGard implements CanActivate{
-  mecanicienService : MecanicienServiceService= inject(MecanicienServiceService);
+  authService : AuthService= inject(AuthService);
   router: Router= inject(Router);
-
+  //constructor(private authService: AuthService, private router: Router) {}
   canActivate():boolean {
-      if(this.mecanicienService.isAuthenticated()){
+      if(this.authService.isAuthenticated()){
         console.log("Ici c'est Paris")
         return true;
       }
