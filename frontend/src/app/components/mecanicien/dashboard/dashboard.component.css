@@ -5,6 +5,7 @@
     min-height: 100vh;
     transition: all 0.3s;
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+    /* position: fixed; */
 }
 
 .sidebar-header {
@@ -57,6 +58,9 @@
 .content-area {
     padding: 20px;
     min-height: 100vh;
+    /* margin-left: 300px; /* Doit être égal à la largeur de la sidebar */
+    /* padding: 20px;
+    overflow-y: auto; */ 
 }
 
 .sidebar-placeholder {

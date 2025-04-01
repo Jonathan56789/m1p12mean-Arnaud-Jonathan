@@ -1,0 +1,318 @@
+/* :root {
+    --turquoise-base: #1ABC9C;
+    --turquoise-light: #48DBBD;
+    --turquoise-dark: #16A085;
+}
+
+body {
+    background: linear-gradient(135deg, #1ABC9C, #48DBBD);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 50px 0;
+} */
+
+.repair-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* .repair-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+} */
+
+.card-header {
+    background: linear-gradient(to right, #16A085, #1ABC9C);
+    color: white;
+    padding: 20px;
+    border-bottom: none;
+}
+
+.repair-detail-icon {
+    color: #1ABC9C;
+    margin-right: 15px;
+    font-size: 2.2rem;
+    vertical-align: middle;
+}
+
+/* Stylisation avancée du progress-bar sans JS */
+.progress-container {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.progress {
+    height: 25px;
+    border-radius: 20px;
+    background-color: rgba(26, 188, 156, 0.2);
+}
+
+.progress-bar {
+    background: linear-gradient(to right, #16A085, #1ABC9C);
+    border-radius: 20px;
+}
+
+/* Stylisation avancée du range input */
+.range-container {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.form-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 10px;
+    background: rgba(26, 188, 156, 0.2);
+    outline: none;
+}
+
+.form-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #1ABC9C;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.form-range::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #1ABC9C;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-range::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tickmarks pour l'input range */
+.range-ticks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+
+.range-ticks span {
+    position: relative;
+    width: 1px;
+    height: 5px;
+    background: #16A085;
+    font-size: 0.7rem;
+    color: #666;
+}
+
+.range-ticks span::after {
+    content: attr(data-value);
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.status-badge {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(to right, #16A085, #1ABC9C);
+    color: white;
+}
+
+.btn-complete {
+    background: linear-gradient(to right, #16A085, #1ABC9C);
+    border: none;
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.btn-complete:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #1ABC9C, #48DBBD);
+}
+
+/* Bubble effect pour l'input range */
+.range-value-bubble {
+    position: absolute;
+    top: -40px;
+    left: 60%;
+    transform: translateX(-50%);
+    background: #1ABC9C;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    transition: left 0.1s ease-in-out;
+}
+
+.range-value-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1ABC9C transparent transparent transparent;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+    padding: 15px 30px;
+}
+
+.btn-back {
+    /* position: absolute;
+    top: 20px;
+    left: 20px; */
+    background-color: #20c997;
+    /* Couleur turquoise */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(32, 201, 151, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Effet hover */
+.btn-back:hover {
+    background-color: #15a57c;
+    box-shadow: 0 6px 18px rgba(32, 201, 151, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Effet de clic */
+.btn-back:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(32, 201, 151, 0.3);
+}
+
+/* Effet d'ondulation */
+.btn-back::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease-out, height 0.6s ease-out;
+    z-index: -1;
+}
+
+.btn-back:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Animation de l'icône */
+.btn-back:hover i {
+    animation: arrow-move 0.8s ease infinite;
+}
+
+@keyframes arrow-move {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-4px);
+    }
+}
+
+/* Adaptation responsive */
+@media (max-width: 576px) {
+    .btn-back {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+.btn-confirm-progress {
+    background: linear-gradient(45deg, #16A085, #1ABC9C);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.btn-confirm-progress::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s ease;
+}
+
+.btn-confirm-progress:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(22, 160, 133, 0.4);
+    background: linear-gradient(45deg, #1ABC9C, #48DBBD);
+}
+
+.btn-confirm-progress:hover::before {
+    left: 100%;
+}
+
+.btn-confirm-progress:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(22, 160, 133, 0.3);
+}
+
+.card-header .btn-complete {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Adaptation responsive */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .card-header .btn-complete {
+        align-self: flex-start;
+    }
+}

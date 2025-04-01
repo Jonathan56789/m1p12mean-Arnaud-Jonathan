@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class MecanicienServiceService {
-  private apiUrl = 'http://localhost:5000/mecanicien';
+  private apiUrl = 'http://localhost:5000/users';
 
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
@@ -24,33 +24,33 @@ export class MecanicienServiceService {
   }
 
 
-  // Lire touts les mécaniciens
-  getAllMecanicien(): Observable<any> {
-    return this.http.get(this.apiUrl)
-  }
+  // // Lire touts les mécaniciens
+  // getAllMecanicien(): Observable<any> {
+  //   return this.http.get(this.apiUrl)
+  // }
 
-  //Lire 1 mécanicien par email ou ID
-  getMecanicienByIdOrEmail(param: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${param}`)
-  }
+  // //Lire 1 mécanicien par email ou ID
+  // getMecanicienByIdOrEmail(param: string): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/${param}`)
+  // }
 
-  //Modifier un mécanicien
-  updateMecanicien(id: string, meca: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, meca)
-  }
+  // //Modifier un mécanicien
+  // updateMecanicien(id: string, meca: any): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/${id}`, meca)
+  // }
 
-  //Créer un mécanicien
-  createMecanicien(meca: any): Observable<any> {
-    return this.http.delete(this.apiUrl, meca)
-  }
+  // //Créer un mécanicien
+  // createMecanicien(user: any): Observable<any> {
+  //   return this.http.delete(this.apiUrl, user)
+  // }
 
-  login(email: string, mdp: string): Observable<any> {
-    return this.http.post<{ token: any, meca: any }>(`${this.apiUrl}/login`, { email, mdp }).pipe(
+  login(email: string, mdp: string, role: string): Observable<any> {
+    return this.http.post<{ token: any, user: any }>(`${this.apiUrl}/login`, { email, mdp, role }).pipe(
       tap({
         next: (res) => {
           localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.meca));
-          this.userSubject.next(res.meca)
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.userSubject.next(res.user)
         },
         error: (error) => {
           Swal.fire({
@@ -82,7 +82,7 @@ export class MecanicienServiceService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     console.log("🔍 Vérification du token :", token);
-    return !!token; 
+    return !!token;
   }
 
 
@@ -94,6 +94,6 @@ export class MecanicienServiceService {
   logout(): void {
     // localStorage.removeItem('user');
     // localStorage.removeItem('token');
-    localStorage.clear(); 
+    localStorage.clear();
   }
 }

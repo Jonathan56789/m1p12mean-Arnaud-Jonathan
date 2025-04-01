@@ -1,9 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MecanicienServiceService } from '../../../services/mecanicien-service.service';
+import { MecanicienServiceService } from '../../../services/mecanicien/mecanicien-service.service';
 
 @Component({
+  standalone: true,
   selector: 'app-dashboard',
   imports: [RouterModule, CommonModule],
   templateUrl: './dashboard.component.html',
@@ -17,5 +18,4 @@ export class DashboardComponent {
       this.user = user;
     });
   }
-
 }

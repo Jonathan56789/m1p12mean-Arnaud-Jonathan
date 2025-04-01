@@ -1,0 +1,100 @@
+<button class="btn-back" onclick="history.back()">
+    <i class="bi bi-arrow-left"></i>
+    <span>Retour</span>
+</button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card repair-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">Détails de Réparation</h2>
+                    <button type="button" class="btn btn-confirm-progress">
+                        <i class="bi bi-check-circle me-2"></i>Terminer la Réparation
+                    </button>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i class="bi bi-car-front repair-detail-icon"></i>Véhicule
+                            </h5>
+                            <p class="mb-1">{{repair.vehicleId.nameVehicle}}</p>
+                            <p>{{repair.vehicleId.licensePlate}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i class="bi bi-person repair-detail-icon"></i>Propriétaire
+                            </h5>
+                            <p class="mb-1">{{repair.clientId.nomComplet}}</p>
+                            <p>Email: {{repair.clientId.email}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i class="bi bi-tools repair-detail-icon"></i>Type de Réparation
+                            </h5>
+                            <p>{{repair.details}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3">
+                                <i class="bi bi-calendar repair-detail-icon"></i>Dates
+                            </h5>
+                            <p class="mb-1">Début: {{repair.startDate | date:'dd/MM/yyyy'}}</p>
+                            <p>Estimation fin: {{repair.estimatedCompletion|
+                                date:'dd/MM/yyyy'}}</p>
+                        </div>
+                    </div>
+
+                    <form [formGroup]="formRepair"  (submit)="updateRepair()">
+                        <div class="mb-4">
+                            <h5 class="mb-3">
+                                <i class="bi bi-graph-up repair-detail-icon"></i>Progression
+                            </h5>
+                            <div class="progress-container">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                        aria-valuemax="100" [style.width.%]="repair.progression">{{repair.progression}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="range-container">
+                                <!-- <div class="range-value-bubble">60%</div> -->
+                                <input type="range" class="form-range" min="0" max="100" step="10"
+                                    [value]="repair.progression" formControlName="progression">
+                                <div class="range-ticks">
+                                    <span data-value="0%"></span>
+                                    <span data-value="20%"></span>
+                                    <span data-value="40%"></span>
+                                    <span data-value="60%"></span>
+                                    <span data-value="80%"></span>
+                                    <span data-value="100%"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-confirm-progress">
+                                <i class="bi bi-save me-2"></i>Confirmer la progression
+                            </button>
+                        </div>
+                    </form>
+
+
+                    <div class="mb-4">
+                        <h5 class="mb-3">
+                            <i class="bi bi-info-circle repair-detail-icon"></i>Statut
+                        </h5>
+                        <span class="badge status-badge">{{repair.status}}</span>
+                    </div>
+                </div>
+                <!-- <div class="card-footer text-center">
+                    <button type="button" class="btn btn-confirm-progress">
+                        <i class="bi bi-check-circle me-2"></i>Terminer la Réparation
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

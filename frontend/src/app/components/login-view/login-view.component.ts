@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validator, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MecanicienServiceService } from '../../services/mecanicien-service.service';
+import { MecanicienServiceService } from '../../services/mecanicien/mecanicien-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
 @Component({
+  standalone: true,
   selector: 'app-login-view',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login-view.component.html',
@@ -25,16 +26,13 @@ export class LoginViewComponent {
   })
 
   login() {
-    if (this.applyForm.value.role == 'mechanic') {
-      this.mecanicienService.login(this.applyForm.value.email, this.applyForm.value.mdp).subscribe(
+    if (this.applyForm.value.role == 'mecanicien') {
+      this.mecanicienService.login(this.applyForm.value.email, this.applyForm.value.mdp, this.applyForm.value.role).subscribe(
         res => {
           this.mecanicienService.saveToken(res.token);
-          this.router.navigate(['dashboard/accueil'])
+          this.router.navigate(['mecanicien/dashboard/accueil'])
         },
       );
-      // 
     }
-
-
   }
 }
