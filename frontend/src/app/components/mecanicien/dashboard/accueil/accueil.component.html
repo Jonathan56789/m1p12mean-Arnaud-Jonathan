@@ -1,0 +1,111 @@
+<!-- Contenu Accueil -->
+<div id="accueil" class="content active">
+    <!-- Barre d'en-tête avec info mécanicien -->
+    <div class="header-bar d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0">Bonjour, <strong>{{user.nomComplet}}</strong></h4>
+            <p class="mb-0">Mécanicien | ID: {{user.id}}</p>
+        </div>
+        <div>
+            <span class="me-3"><i class="fas fa-calendar-alt me-2"></i>22 Mars 2025</span>
+            <div class="btn-group">
+                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-user-circle me-2"></i>Mon Compte
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit me-2"></i>Modifier
+                            profil</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item text-danger" href="#"><i
+                                class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="stats-card p-4 text-center">
+                <div class="stats-icon mx-auto">
+                    <i class="fas fa-check-circle fa-2x text-success"></i>
+                </div>
+                <h3>24</h3>
+                <p class="text-muted mb-0">Réparations terminées</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stats-card p-4 text-center">
+                <div class="stats-icon mx-auto">
+                    <i class="fas fa-cog fa-spin fa-2x text-warning"></i>
+                </div>
+                <h3>5</h3>
+                <p class="text-muted mb-0">Réparations en cours</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stats-card p-4 text-center">
+                <div class="stats-icon mx-auto">
+                    <i class="fas fa-calendar-plus fa-2x text-primary"></i>
+                </div>
+                <h3>8</h3>
+                <p class="text-muted mb-0">Réparations planifiées</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- Activité récente -->
+        <div class="col-md-6 mb-4">
+            <div class="recent-activity">
+                <h5 class="mb-3"><i class="fas fa-history me-2"></i>Tâches à faire</h5>
+
+                <div *ngFor="let repair of ongoingRepair" class="activity-item d-flex justify-content-between">
+                    <div>
+                        <p class="mb-0"><strong>{{repair.details}}</strong></p>
+                        <small class="text-muted">Client: {{repair.clientId.nomComplet}}</small>
+                    </div>
+                    <div>
+                        <span class="badge bg-success">En cours</span>
+                        <!-- <small class="text-muted d-block">Il y a 2 heures</small> -->
+                    </div>
+                </div>
+                <div *ngFor="let repair of todayRepair" class="activity-item d-flex justify-content-between">
+                    <div>
+                        <p class="mb-0"><strong>{{repair.details}}</strong></p>
+                        <small class="text-muted">Client: {{repair.clientId.nomComplet}}</small>
+                    </div>
+                    <div>
+                        <span class="badge bg-warning">Planifié aujourd'hui</span>
+                        <!-- <small class="text-muted d-block">Il y a 2 heures</small> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-6 mb-4">
+
+            <div class="stats-card p-4 mb-4">
+                <h5><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Notifications</h5>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                        Manager <strong>Jonathan</strong> vous a assigné une réparation
+                        <span class="badge bg-danger rounded-pill">1</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                        Manager <strong>Arnaud</strong> vous a assigné une réparation
+                        <span class="badge bg-warning rounded-pill">2</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

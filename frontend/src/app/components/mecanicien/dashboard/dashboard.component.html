@@ -1,3 +1,36 @@
-<h3>{{user.nomComplet}}</h3>
-<p>{{user.email}}</p>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 p-0 sidebar fixed">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">AutoGarage</div>
+            </div>
+            <ul class="nav flex-column mt-3">
+                <li class="nav-item">
+                    <a routerLink="accueil" routerLinkActive="active" class="nav-link active" data-content="accueil">
+                        <i class="fas fa-home"></i>
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="reparation" routerLinkActive="active" class="nav-link" data-content="reparation">
+                        <i class="fas fa-wrench"></i>
+                        <span>Réparation</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="profil" routerLinkActive="active" class="nav-link" data-content="profile">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
 
+            </ul>
+        </div>
+        <div class="col-md-10 content-area">
+            <router-outlet></router-outlet>
+
+
+        </div>
+    </div>
+</div>

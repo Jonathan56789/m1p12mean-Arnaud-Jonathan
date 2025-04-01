@@ -10,18 +10,22 @@ import { NotificationsComponent } from './components/client/notifications/notifi
 import { QuoteComponent } from './components/client/quote/quote.component';
 import { OverviewComponent } from './components/client/overview/overview.component';
 import { MyVehicleComponent } from './components/client/my-vehicle/my-vehicle.component';
+import { ReparationComponent } from './components/mecanicien/dashboard/reparation/reparation.component';
+import { AccueilComponent } from './components/mecanicien/dashboard/accueil/accueil.component';
+import { ProfilComponent } from './components/mecanicien/dashboard/profil/profil.component';
+import { DetailsComponent } from './components/mecanicien/dashboard/reparation/details/details.component';
 
 export const routes: Routes = [
     {
-        path:'login', 
+        path: 'login',
         component: LoginViewComponent,
         title: "Log In"
-    }, 
+    },
     {
-        path:'', 
+        path: '',
         redirectTo: '/login',
         pathMatch: 'full'
-    }, 
+    },
     {
         path:'dashboard', 
         component: DashboardComponent, 
@@ -44,4 +48,28 @@ export const routes: Routes = [
             { path: 'my-vehicle', component: MyVehicleComponent, title: 'Mes Vehicules' },
         ]
     },
+        path: 'mecanicien/dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGard],
+        title: "Dashboard - mécanicien",
+        children: [
+            {
+                path: 'reparation',
+                component: ReparationComponent,
+                children: []
+            },
+            {
+                path: 'accueil',
+                component: AccueilComponent
+            },
+            {
+                path: 'profil',
+                component: ProfilComponent
+            },
+            {
+                path: 'details/:id',
+                component: DetailsComponent
+            }
+        ]
+    }
 ];

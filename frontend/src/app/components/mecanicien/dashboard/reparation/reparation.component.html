@@ -1,0 +1,189 @@
+<!-- Contenu Réparation -->
+<div id="reparation" class="content">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0"><i class="fas fa-wrench me-2"></i>Gestion des Réparations</h4>
+            <p class="mb-0">Vue d'ensemble des réparations passées, en cours et futures</p>
+        </div>
+        <!-- <div>
+            <button class="btn btn-light me-2">
+                <i class="fas fa-plus me-2"></i>Nouvelle réparation
+            </button>
+            <button class="btn btn-light">
+                <i class="fas fa-filter me-2"></i>Filtres
+            </button>
+        </div> -->
+    </div>
+
+    <!-- Section 1: Réparations terminées -->
+    <div class="section-card mb-2">
+        <div class="section-header bg-success bg-opacity-10 d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-check-circle text-success me-2"></i>Réparations terminées aujourd'hui
+            </div>
+            <div>
+                <!-- <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-print me-1"></i>Imprimer
+                </button> -->
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="Rechercher une réparation...">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <!-- <div>
+                <select class="form-select form-select-sm">
+                    <option selected>Trier par date</option>
+                    <option>Trier par type</option>
+                    <option>Trier par client</option>
+                </select>
+            </div> -->
+        </div>
+
+        <div class="section-body">
+            <!-- section de réparation terminéé -->
+            <h4 *ngIf="completedRepairs.length === 0" class="empty-message">Aucune réparation terminée.</h4>
+            <div *ngFor="let repair of completedRepairs" class="repair-item completed">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="repair-title">{{repair.details}}</div>
+                        <div class="repair-details">
+                            <span class="me-3"><i class="fas fa-car me-1"></i>{{repair.vehicleId.nameVehicle}}
+                                ({{repair.vehicleId.licensePlate}}) </span>
+                            <span><i class="fas fa-user me-1"></i>{{repair.clientId.nomComplet}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-1"><i class="fas fa-calendar-check me-1"></i>Terminé le
+                            {{repair.endDate | date:'dd/MM/yyyy'}}</div>
+                        <div><i class="fas fa-clock me-1"></i>Heure:{{repair.endDate | date:'HH-mm'}}</div>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="status-badge bg-success text-white mb-2 d-inline-block">Terminé</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary action-btn"><i
+                                    class="fas fa-file-alt me-1"></i>Détails</button>
+                            <!-- <button class="btn btn-sm btn-outline-secondary action-btn"><i
+                                    class="fas fa-eye me-1"></i>Masquer</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Section 2: Réparations en cours -->
+        <div class="section-card mb-2">
+            <div class="section-header bg-warning bg-opacity-10 d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-cog fa-spin text-warning me-2"></i>Réparations en cours
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-warning">
+                        <i class="fas fa-tasks me-1"></i>Voir planning
+                    </button>
+                </div>
+            </div>
+
+            <div class="section-body">
+                <!-- Serctions des réparations en cours -->
+
+                <h4 *ngIf="ongoingRepairs.length === 0" class="empty-message">Aucune réparation en cours.</h4>
+
+                <div *ngFor="let repair of ongoingRepairs" class="repair-item in-progress">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="repair-title">{{repair.details}}</div>
+                            <div class="repair-details">
+                                <span class="me-3"><i class="fas fa-car me-1"></i>{{repair.vehicleId.nameVehicle}}
+                                    ({{repair.vehicleId.licensePlate}})</span>
+                                <span><i class="fas fa-user me-1"></i>{{repair.clientId.nomComplet}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-1"><i class="fas fa-calendar me-1"></i>A commenncé le:{{repair.startDate|
+                                date:'dd/MM/yyyy'}}
+                            </div>
+                            <div><i class="fas fa-clock me-1"></i>Estimé: {{repair.estimatedCompletion|
+                                date:'dd/MM/yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <span class="status-badge-entry bg-warning text-dark mb-2 d-inline-block">En cours
+                                ({{repair.progression}}%)</span>
+                            <div class="progress mb-2" style="height: 6px;">
+                                <div class="bg-warning" role="progressbar" [style.width.%]="repair.progression"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div>
+                                <!-- Bouton pour "Terminer" avec la date du jour -->
+                                <button type="button" class="btn btn-sm btn-outline-success action-btn"
+                                    (click)="setFormValuesAndSubmit(repair._id, 'Terminé', 100 ,todayDate)">
+                                    <i class="fas fa-check me-1"></i> Terminer
+                                </button>
+                                <button [routerLink]="['/mecanicien/dashboard/details', repair._id]"
+                                    class="btn btn-sm btn-outline-secondary action-btn"><i
+                                        class="fas fa-eye me-1"></i>Détails</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <!-- Section 3: Réparations planifiées -->
+            <div class="section-card">
+                <div
+                    class="section-header bg-secondary bg-opacity-10 d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-calendar-alt text-secondary me-2"></i>Réparations planifiées
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-calendar-plus me-1"></i>Planifier
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-body">
+
+                    <!-- Section de réparation en attente -->
+                    <h4 *ngIf="plannedRepairs.length === 0" class="empty-message">Aucune réparation en attente.</h4>
+
+                    <div *ngFor="let repair of plannedRepairs" class="repair-item planned">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="repair-title">{{repair.details}}</div>
+                                <div class="repair-details">
+                                    <span class="me-3"><i class="fas fa-car me-1"></i> {{repair.vehicleId.nameVehicle}}
+                                        ({{repair.vehicleId.licensePlate}})</span>
+                                    <span><i class="fas fa-user me-1"></i>{{repair.clientId.nomComplet}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-1"><i class="fas fa-calendar-alt me-1"></i>Planifié pour
+                                    {{repair.startDate | date:'dd/MM/yyyy'}}</div>
+                                <!-- <div><i class="fas fa-clock me-1"></i>{{repair.estimatedCompletion | date:'dd/MM/yyyy'}}</div> -->
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <span class="status-badge bg-secondary text-white mb-2 d-inline-block">Planifié
+                                    aujourd'hui</span>
+                                <div>
+
+                                    <button type="button" class="btn btn-sm btn-outline-warning action-btn"
+                                        (click)="setFormValuesAndSubmit(repair._id, 'En cours')">
+                                        <i class="fas fa-play me-1"></i> Démarrer
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>

@@ -14,6 +14,9 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log("MongoDB connecté"))
     .catch(err => console.log(err));
 // Routes
-app.use('/mecanicien', require('./routes/mecanicienRoute'));
-app.use('/api/client',require('./routes/clientRoutes'));
+// app.use('/mecanicien', require('./routes/mecanicienRoute'));
+// app.use('/api/client',require('./routes/clientRoutes'));
+app.use('/users', require('./routes/userRoutes'));
+app.use('/repairs', require('./routes/repairRoutes'));
+app.use('/vehicles', require('./routes/vehicleRoute'))
 app.listen(PORT, () => console.log(`Serveur démarré sur le port${PORT}`));
