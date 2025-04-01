@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { MecanicienServiceService } from '../../services/mecanicien/mecanicien-service.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -17,7 +18,14 @@ export class LoginViewComponent {
   // mecanicienService: MecanicienServiceService = inject(MecanicienServiceService);
   // router: Router = inject(Router)
 
-  constructor(private mecanicienService: MecanicienServiceService, private router: Router) { }
+
+  constructor(
+    private mecanicienService: MecanicienServiceService,
+    private authService:AuthService,
+    private router: Router
+
+  ){}
+
 
   applyForm: FormGroup = new FormGroup({
     role: new FormControl('', Validators.required),
@@ -34,5 +42,28 @@ export class LoginViewComponent {
         },
       );
     }
+
+    else if(this.applyForm.value.role == 'client'){
+      this.authService.login(this.applyForm.value.email, this.applyForm.value.mdp).subscribe(
+        res => {
+          console.log("eeeeeeeeeeeeeee");
+          this.authService.saveToken(res.token);
+          console.log(localStorage.getItem('token'));
+          this.router.navigate(['dashboard-client']);
+          console.log(res.token);
+        },
+        err => {
+          // Affichage de l'erreur
+        }
+      //   {
+      //     next: (response) => {
+      //         this.authService.saveToken(response.token);
+      //         this.router.navigate(['dashboard-client']);
+      //     },
+      //     error: (err) => {}
+      // }
+      );
+    }
+
   }
 }

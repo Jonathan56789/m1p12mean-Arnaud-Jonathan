@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom mt-0">
+    <h1 class="h2">Mes véhicules</h1>
+    <button class="btn btn-primary" (click)="showAddForm = !showAddForm">
+      <i class="bi bi-plus-circle me-1"></i> Ajouter un véhicule
+    </button>
+  </div>
+  
+  <!-- Formulaire pour ajouter un véhicule -->
+  <div class="card mb-4" *ngIf="showAddForm">
+    <div class="card-header bg-white">
+      <h5 class="card-title mb-0">Ajouter un nouveau véhicule</h5>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="licensePlate" class="form-label">Plaque d'immatriculation</label>
+        <input
+          type="text"
+          class="form-control"
+          id="licensePlate"
+          #licensePlateInput
+          (input)="licensePlate = licensePlateInput.value"
+          placeholder="Ex: AB-123-CD"
+          required
+        />
+      </div>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-outline-secondary" (click)="showAddForm = false">Annuler</button>
+        <button class="btn btn-primary" (click)="addVehicle()" [disabled]="!licensePlate">Ajouter</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Liste des véhicules -->
+  <div class="card">
+    <div class="card-header bg-white">
+      <h5 class="card-title mb-0">Liste de mes véhicules</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Plaque d'immatriculation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+              <td>{{ vehicle.licensePlate }}</td>
+              <td>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteVehicle(vehicle._id)">
+                  <i class="bi bi-trash me-1"></i> Supprimer
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="vehicles.length === 0" class="text-center text-muted">
+        Aucun véhicule enregistré pour le moment.
+      </div>
+    </div>
+  </div>

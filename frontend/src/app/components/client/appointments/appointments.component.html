@@ -1,0 +1,100 @@
+<!-- <div class="container-fluid">
+    <div class="card">
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4"> -->
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h2">Prise de rendez-vous</h1>
+        </div>
+        <div class="card">
+          <div class="card-header bg-white">
+            <ul class="nav nav-tabs card-header-tabs" id="appointmentTabs">
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': activeTab === 'vehicle'}" (click)="activeTab = 'vehicle'">1. Véhicule</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': activeTab === 'service'}" (click)="activeTab = 'service'">2. Service</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': activeTab === 'date'}" (click)="activeTab = 'date'">3. Date</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': activeTab === 'time'}" (click)="activeTab = 'time'">4. Heure</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': activeTab === 'confirm'}" (click)="activeTab = 'confirm'">5. Confirmation</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div *ngIf="activeTab === 'vehicle'">
+              <h5 class="mb-4">Choisissez un véhicule</h5>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" *ngFor="let vehicle of vehicles">
+                  <div class="service-card" [ngClass]="{'active': selectedVehicle === vehicle}" (click)="selectVehicle(vehicle)">
+                    <div class="service-icon">
+                      <i class="fas fa-car"></i> 
+                    </div>
+                    <h5>{{ vehicle.licensePlate }}</h5>
+                    <p class="text-muted small">Véhicule ID: {{ vehicle._id }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" routerLink="overview">Annuler</button>
+                <button class="btn btn-primary" (click)="activeTab = 'service'" [disabled]="!selectedVehicle">Suivant</button>
+              </div>
+            </div>
+            <div *ngIf="activeTab === 'service'">
+              <h5 class="mb-4">Choisissez un service</h5>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" *ngFor="let service of services">
+                  <div class="service-card" [ngClass]="{'active': selectedService === service.type}" (click)="selectService(service.type)">
+                    <div class="service-icon">
+                      <i [class]="service.icon"></i>
+                    </div>
+                    <h5>{{ service.type }}</h5>
+                    <p class="text-muted small">{{ service.description }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" routerLink="overview">Annuler</button>
+                <button class="btn btn-primary" (click)="activeTab = 'date'" [disabled]="!selectedService">Suivant</button>
+              </div>
+            </div>
+            <div *ngIf="activeTab === 'date'">
+              <h5 class="mb-4">Sélectionnez une date</h5>
+            
+              <input type="date" [(ngModel)]="selectedDate" class="form-control mb-4" required>
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" (click)="activeTab = 'service'">Précédent</button>
+                <button class="btn btn-primary" (click)="activeTab = 'time'" [disabled]="!selectedDate">Suivant</button>
+              </div>
+            </div>
+            <div *ngIf="activeTab === 'time'">
+              <h5 class="mb-4">Choisissez une heure</h5>
+              <div class="d-flex flex-wrap">
+                <div class="time-slot" *ngFor="let slot of timeSlots" [ngClass]="{'active': selectedTime === slot}" (click)="selectTime(slot)">
+                  {{ slot }}
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" (click)="activeTab = 'date'">Précédent</button>
+                <button class="btn btn-primary" (click)="activeTab = 'confirm'" [disabled]="!selectedTime">Suivant</button>
+              </div>
+            </div>
+            <div *ngIf="activeTab === 'confirm'">
+              <h5 class="mb-4">Confirmez votre rendez-vous</h5>
+              <p><strong>Véhicule :</strong> {{ selectedVehicle?.licensePlate }}</p>
+              <p><strong>Service :</strong> {{ selectedService }}</p>
+              <p><strong>Date :</strong> {{ selectedDate | date:'dd MMMM yyyy' }}</p>
+              <p><strong>Heure :</strong> {{ selectedTime }}</p>
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" (click)="activeTab = 'time'">Précédent</button>
+                <button class="btn btn-primary" (click)="confirmAppointment()">Confirmer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </main>
+    </div>
+  </div> -->

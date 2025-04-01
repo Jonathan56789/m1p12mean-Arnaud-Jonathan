@@ -1,0 +1,4 @@
+.sidebar {
+    width: 100%; /* S’assure que la sidebar prend la largeur de son conteneur (col-md-3 col-lg-2) */
+    max-width: 100%; /* Empêche tout débordement */
+  }

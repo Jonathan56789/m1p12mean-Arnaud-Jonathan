@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header bg-white">
+    <h5 class="card-title mb-0">Notifications</h5>
+  </div>
+  <div class="card-body p-0">
+    <div class="list-group list-group-flush">
+      <div *ngFor="let notification of notifications" class="list-group-item" [class.border-danger]="notification.urgent">
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">{{ notification.message }}</h6>
+          <small>{{ notification.date | date:'dd MMM yyyy, HH:mm' }}</small>
+        </div>
+        <p class="mb-1 small">{{ notification.details }}</p>
+      </div>
+    </div>
+    <div *ngIf="notifications.length === 0" class="text-center text-muted p-3">
+      Aucune notification pour le moment.
+    </div>
+  </div>
+</div>

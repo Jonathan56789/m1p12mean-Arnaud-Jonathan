@@ -1,0 +1,187 @@
+/* overview.component.css */
+
+/* Conteneur global */
+.container-fluid {
+    padding: 0;
+  }
+  
+  /* Carte principale */
+  .card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* En-tête de la carte avec les onglets */
+  .card-header {
+    padding: 0;
+    border-bottom: none;
+  }
+  
+  .nav-tabs {
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #495057;
+    padding: 12px 20px;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-tabs .nav-link:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: #007bff;
+    border-bottom: 3px solid #007bff;
+    background-color: transparent;
+  }
+  
+  /* Corps de la carte */
+  .card-body {
+    padding: 30px;
+  }
+  
+  /* Titres des sections */
+  h5.mb-4 {
+    color: #343a40;
+    font-weight: 600;
+  }
+  
+  /* Cartes de service */
+  .service-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .service-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-card.active {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+  }
+  
+  .service-icon {
+    font-size: 2rem;
+    color: #6c757d;
+    margin-bottom: 10px;
+  }
+  
+  .service-card h5 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #343a40;
+  }
+  
+  .service-card p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  /* Champ de date */
+  input[type="date"] {
+    max-width: 250px;
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+  }
+  
+  input[type="date"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }
+  
+  /* Créneaux horaires */
+  .time-slot {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .time-slot:hover {
+    background-color: #f1f3f5;
+  }
+  
+  .time-slot.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  /* Boutons */
+  .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  
+  .btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #b3d7ff;
+    border-color: #b3d7ff;
+    cursor: not-allowed;
+  }
+  
+  /* Ligne de séparation */
+  .border-bottom {
+    border-bottom: 1px solid #e9ecef !important;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 20px;
+    }
+  
+    .service-card {
+      margin-bottom: 15px;
+    }
+  
+    .time-slot {
+      flex: 1 0 45%;
+      text-align: center;
+    }
+  
+    .btn {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .d-flex.justify-content-between {
+      flex-direction: column;
+    }
+  }
