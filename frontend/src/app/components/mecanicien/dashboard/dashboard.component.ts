@@ -1,18 +1,21 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MecanicienServiceService } from '../../../services/mecanicien-service.service';
+import { Component, inject, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MecanicienServiceService } from '../../../services/mecanicien/mecanicien-service.service';
 
 @Component({
+  standalone: true,
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
   user: any;
 
-  mecanicienService: MecanicienServiceService= inject(MecanicienServiceService)
-
-  ngOnInit(): void{
-    this.user= this.mecanicienService.getUser();
+  constructor(private mecanicienService: MecanicienServiceService) {
+    this.mecanicienService.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 }
