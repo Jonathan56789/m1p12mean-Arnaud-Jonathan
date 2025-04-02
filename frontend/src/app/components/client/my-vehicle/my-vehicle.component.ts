@@ -3,6 +3,7 @@ import { Component ,OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ClientService } from '../../../services/client.service';
+import { VehicleService } from '../../../services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-my-vehicle',
@@ -16,14 +17,14 @@ export class MyVehicleComponent {
   showAddForm: boolean = false;
   licensePlate: string = '';
 
-  constructor(private clientService: ClientService) {}
+  constructor(private vehicleService: VehicleService,private clientService: ClientService) {}
 
   ngOnInit() {
     this.loadVehicles();
   }
 
   loadVehicles() {
-    this.clientService.getMyVehicles().subscribe(
+    this.vehicleService.getMyVehicles().subscribe(
       (data) => {
         this.vehicles = data.vehicles;
       },

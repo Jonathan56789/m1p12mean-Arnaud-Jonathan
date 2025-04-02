@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { MecanicienServiceService } from '../../services/mecanicien/mecanicien-service.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -35,22 +35,26 @@ export class LoginViewComponent {
 
   login() {
     if (this.applyForm.value.role == 'mecanicien') {
-      this.mecanicienService.login(this.applyForm.value.email, this.applyForm.value.mdp, this.applyForm.value.role).subscribe(
+      this.authService.login(this.applyForm.value.email, this.applyForm.value.mdp, this.applyForm.value.role).subscribe(
         res => {
-          this.mecanicienService.saveToken(res.token);
-          this.router.navigate(['mecanicien/dashboard/accueil'])
+          // this.mecanicienService.saveToken(res.token);
+          // this.router.navigate(['mecanicien/dashboard/accueil'])
+          console.log("Afichage token");
+          this.authService.saveToken(res.token);
+          console.log(localStorage.getItem('token'));
+          this.router.navigate(['mecanicien/dashboard/accueil']);
+          //console.log(res.token);
         },
       );
     }
 
     else if(this.applyForm.value.role == 'client'){
-      this.authService.login(this.applyForm.value.email, this.applyForm.value.mdp).subscribe(
+      this.authService.login(this.applyForm.value.email, this.applyForm.value.mdp,this.applyForm.value.role).subscribe(
         res => {
-          console.log("eeeeeeeeeeeeeee");
+          console.log("Afichage token");
           this.authService.saveToken(res.token);
           console.log(localStorage.getItem('token'));
           this.router.navigate(['dashboard-client']);
-          console.log(res.token);
         },
         err => {
           // Affichage de l'erreur

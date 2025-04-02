@@ -1,8 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot} from '@angular/router';
-
-import { MecanicienServiceService } from '../services/mecanicien-service.service';
 import { inject ,Injectable} from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +11,11 @@ export class AuthGard implements CanActivate{
   //constructor(private authService: AuthService, private router: Router) {}
   canActivate():boolean {
 
-//       if(this.authService.isAuthenticated()){
-//         console.log("Ici c'est Paris")
+      if(this.authService.isAuthenticated()){
+        console.log("Ici c'est Paris")
 
-      if(this.mecanicienService.isAuthenticated()){
-        console.log("Misy token")
+      // if(this.mecanicienService.isAuthenticated()){
+      //   console.log("Misy token")
 
         return true;
       }

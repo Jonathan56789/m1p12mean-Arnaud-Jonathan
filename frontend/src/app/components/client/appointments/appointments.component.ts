@@ -4,6 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
+import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { AppointmentService } from '../../../services/appointment/appointment.service';
 
 @Component({
   standalone:true,
@@ -30,7 +32,7 @@ export class AppointmentsComponent {
   ];
   timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
 
-  constructor(private clientService: ClientService, private router: Router,) {}
+  constructor(private appointmentService: AppointmentService, private router: Router,private vehicleService: VehicleService,) {}
 
   selectService(service: string) {
     this.selectedService = service;
@@ -43,6 +45,7 @@ export class AppointmentsComponent {
   }
   ngOnInit(){
     this.loadVehicles();
+    console.log("dfd");
     // this.clientService.getProfile().subscribe((data)=>
     // {
     //   this.clientId=data.client.id;
@@ -56,13 +59,14 @@ export class AppointmentsComponent {
       date: new Date(`${this.selectedDate}T${this.selectedTime}`),
       serviceType: this.selectedService,
     };
-    this.clientService.bookAppointment(appointment).subscribe(() => {
+    this.appointmentService.bookAppointment(appointment).subscribe(() => {
       this.router.navigate(['dashboard-client']);
     });
   }
   loadVehicles() {
-    this.clientService.getMyVehicles().subscribe(
+    this.vehicleService.getMyVehicles().subscribe(
       (data) => {
+        console.log(data);
         this.vehicles = data.vehicles;
       },
       (err) => {
