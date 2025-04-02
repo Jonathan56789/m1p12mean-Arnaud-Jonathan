@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MecanicienServiceService } from '../../../services/mecanicien/mecanicien-service.service';

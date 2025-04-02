@@ -1,0 +1,233 @@
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <h1 class="page-title">Gestion des Réparations</h1>
+        <div class="header-actions">
+            <a href="#" class="btn add-btn">
+                <i class="fas fa-plus me-2"></i>Ajouter une réparation
+            </a>
+        </div>
+    </div>
+
+    <!-- User Profile -->
+    <div class="user-profile mb-4">
+        <div class="user-img">M</div>
+        <div class="user-info">
+            <div class="user-name">Michel Dupont</div>
+            <div class="user-role">Manager</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card">
+        <div class="filters">
+            <div class="filter-group">
+                <span class="filter-label">Date de début:</span>
+                <select class="filter-select">
+                    <option value="all">Toutes les dates</option>
+                    <option value="today">Aujourd'hui</option>
+                    <option value="yesterday">Hier</option>
+                    <option value="week">Cette semaine</option>
+                    <option value="month">Ce mois</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Mécanicien:</span>
+                <select class="filter-select">
+                    <option value="all">Tous</option>
+                    <option value="jean">Jean Leroy</option>
+                    <option value="sophie">Sophie Dubois</option>
+                    <option value="marc">Marc Laurent</option>
+                    <option value="laura">Laura Martin</option>
+                    <option value="thomas">Thomas Garcia</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Rechercher une réparation, un véhicule...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Tabs -->
+    <ul class="nav nav-tabs" id="statusTabs" role="tablist">
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link en-attente" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab"
+                aria-controls="pending" aria-selected="false">
+                <i class="fas fa-clock me-2"></i>En attente
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link en-cours active" id="in-progress-tab" data-bs-toggle="tab" href="#in-progress" role="tab"
+                aria-controls="in-progress" aria-selected="true">
+                <i class="fas fa-spinner me-2"></i>En cours
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link termine" id="completed-tab" data-bs-toggle="tab" href="#completed" role="tab"
+                aria-controls="completed" aria-selected="false">
+                <i class="fas fa-check-circle me-2"></i>Terminé
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="statusTabsContent">
+        <!-- En cours Tab -->
+        <div class="tab-pane fade show active" id="in-progress" role="tabpanel" aria-labelledby="in-progress-tab">
+            <div class="card card-in-progress">
+                <div class="card-header">
+                    <h2 class="card-title">Réparations en cours</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Client & Véhicule</th>
+                                    <!-- <th>Véhicule</th> -->
+                                    <th>Type de Réparation</th>
+                                    <th>Mécanicien</th>
+                                    <th>Date de début</th>
+                                    <th>Date estimée de fin</th>
+                                    <th>Main d'oeuvre</th>
+                                    <!-- <th>Statut</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let repair of ongoingRepairs">
+                                    <td>
+                                        <div class="client-info">
+                                            <div class="client-avatar">SM</div>
+                                            <div>
+                                                <div class="client-name">{{repair.clientId.nomComplet}}</div>
+                                                <div class="client-car">{{repair.vehicleId.nameVehicle}}
+                                                    ({{repair.vehicleId.licensePlate}})</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.details}}</td>
+                                    <td>
+                                        <div class="mechanic-info">
+                                            <div class="mechanic-avatar">JL</div>
+                                            <div class="mechanic-name">{{repair.mecanicienId.nomComplet}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.startDate |
+                                        date:'dd/MM/yyyy'}}</td>
+                                    <td>{{repair.startDate |
+                                        date:'dd/MM/yyyy'}}</td>
+                                    <!--Date d'estimation no eto fa mbola masosotay be le izy ka-->
+                                    <td><span class="status in-progress">{{repair.cost}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- En attente Tab -->
+        <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+            <div class="card card-pending">
+                <div class="card-header">
+                    <h2 class="card-title">Réparations en attente</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Véhicule & Client</th>
+                                    <th>Type de Réparation</th>
+                                    <th>Mécanicien</th>
+                                    <th>Date de début</th>
+                                    <th>Main d'oeuvre</th>
+                                    <!-- <th>Statut</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let repair of plannedRepairs">
+                                    <!-- <td>{{repair.vehicleId.nameVehicle}} ({{repair.vehicleId.licensePlate}})</td> -->
+                                    <td>
+                                        <div class="client-info">
+                                            <div class="client-avatar">SM</div>
+                                            <div>
+                                                <div class="client-name">{{repair.clientId.nomComplet}}</div>
+                                                <div class="client-car">{{repair.vehicleId.nameVehicle}}
+                                                    ({{repair.vehicleId.licensePlate}})</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.details}}</td>
+                                    <td>
+                                        <div class="mechanic-info">
+                                            <div class="mechanic-avatar">LM</div>
+                                            <div class="mechanic-name">{{repair.mecanicienId.nomComplet}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.startDate |
+                                        date:'dd/MM/yyyy'}}</td>
+                                    <td><span class="status pending">{{repair.cost}} Ariary</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminé Tab -->
+        <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+            <div class="card card-completed">
+                <div class="card-header">
+                    <h2 class="card-title">Réparations terminées</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Véhicule</th>
+                                    <th>Type de Réparation</th>
+                                    <th>Mécanicien</th>
+                                    <th>Date de début</th>
+                                    <th>Date de fin</th>
+                                    <th>Main d'oeuvre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let repair of completedRepairs">
+                                    <td>
+                                        <div class="client-info">
+                                            <div class="client-avatar">SM</div>
+                                            <div>
+                                                <div class="client-name">{{repair.clientId.nomComplet}}</div>
+                                                <div class="client-car">{{repair.vehicleId.nameVehicle}}
+                                                    ({{repair.vehicleId.licensePlate}})</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.details}}</td>
+                                    <td>
+                                        <div class="mechanic-info">
+                                            <div class="mechanic-avatar">JL</div>
+                                            <div class="mechanic-name">{{repair.mecanicienId.nomComplet}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{repair.startDate |
+                                        date:'dd/MM/yyyy'}}</td>
+                                    <td>{{repair.endDate |
+                                        date:'dd/MM/yyyy'}}</td>
+                                    <td><span class="status completed">{{repair.cost}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

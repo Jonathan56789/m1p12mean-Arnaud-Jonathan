@@ -14,6 +14,10 @@ import { ReparationComponent } from './components/mecanicien/dashboard/reparatio
 import { AccueilComponent } from './components/mecanicien/dashboard/accueil/accueil.component';
 import { ProfilComponent } from './components/mecanicien/dashboard/profil/profil.component';
 import { DetailsComponent } from './components/mecanicien/dashboard/reparation/details/details.component';
+import { DashboardManagerComponent } from './components/manager/dashboard-manager/dashboard-manager.component';
+import { AccueilManagerComponent } from './components/manager/dashboard-manager/accueil-manager/accueil-manager.component';
+import { RendezvousManagerComponent } from './components/manager/dashboard-manager/rendezvous-manager/rendezvous-manager.component';
+import { ReparationManagerComponent } from './components/manager/dashboard-manager/reparation-manager/reparation-manager.component';
 
 export const routes: Routes = [
     {
@@ -23,14 +27,8 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/login',
+        redirectTo: '/manager/dashboard/accueil',
         pathMatch: 'full'
-    },
-    {
-        path: 'dashboard',
-        component: DashboardComponent,
-        //canActivate: [AuthGard], 
-        title: "Dashboard - mécanicien"
     },
     {
         path: 'dashboard-client',
@@ -70,6 +68,25 @@ export const routes: Routes = [
             {
                 path: 'details/:id',
                 component: DetailsComponent
+            }
+        ]
+    },
+    {
+        path: 'manager/dashboard', 
+        component: DashboardManagerComponent,
+        title: 'Dasboard - Manager',
+        children:[
+            {
+                path:'accueil', 
+                component: AccueilManagerComponent
+            }, 
+            {
+                path: 'rendezvous',
+                component: RendezvousManagerComponent
+            },
+            {
+                path: 'reparation', 
+                component: ReparationManagerComponent
             }
         ]
     }

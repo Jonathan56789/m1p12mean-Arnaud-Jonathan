@@ -7,7 +7,7 @@ const Repair = require('../models/repairModel');
 // Créer une réparation
 router.post('/create', async (req, res) => {
     try {
-        const { clientId, vehicleId, mecanicienId, startDate, estimatedCompletion, details } = req.body;
+        const { clientId, vehicleId, mecanicienId, startDate, estimatedCompletion, details, cost } = req.body;
 
         let repair = new Repair({
             clientId: clientId,
@@ -15,7 +15,8 @@ router.post('/create', async (req, res) => {
             mecanicienId: mecanicienId,
             startDate: startDate,
             estimatedCompletion: estimatedCompletion,
-            details: details
+            details: details, 
+            cost: cost
         })
 
         await repair.save();
@@ -31,6 +32,9 @@ router.post('/create', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const repair = await Repair.find()
+            .populate('vehicleId')
+            .populate('clientId')
+            .populate('mecanicienId');
         res.json(repair)
     }
     catch (error) {

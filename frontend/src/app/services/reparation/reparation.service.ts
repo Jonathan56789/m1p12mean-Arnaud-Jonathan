@@ -10,7 +10,11 @@ export class ReparationService {
   private apiUrl = 'http://localhost:5000/repairs';
   constructor(private http: HttpClient) { }
 
-  getRepairsByMechanics(idMeca: string) : Observable<any[]>{
+
+  getAllRepairs(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`)
+  }
+  getRepairsByMechanics(idMeca: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${idMeca}`)
   }
 
@@ -20,7 +24,7 @@ export class ReparationService {
     return this.http.put(`${this.apiUrl}/${id}`, updatedData);
   }
 
-  getRepairById(id: string): Observable<any>{
+  getRepairById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/detail/${id}`)
   }
 }
