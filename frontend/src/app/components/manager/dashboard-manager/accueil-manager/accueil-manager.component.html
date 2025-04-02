@@ -1,0 +1,137 @@
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <h1 class="page-title">Tableau de bord</h1>
+        <div class="user-profile">
+            <div class="user-img">M</div>
+            <div class="user-info">
+                <div class="user-name">Michel Dupont</div>
+                <div class="user-role">Manager</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card primary">
+            <div class="stat-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="stat-title">Véhicules en cours</div>
+            <div class="stat-value">{{nbrCarEnCours}} </div>
+            <div class="stat-desc">+5 par rapport à hier</div>
+        </div>
+        <div class="stat-card success">
+            <div class="stat-icon">
+                <i class="fas fa-euro-sign"></i>
+            </div>
+            <div class="stat-title">Revenus (mois)</div>
+            <div class="stat-value">42,580€</div>
+            <div class="stat-desc">+12% par rapport au mois dernier</div>
+        </div>
+        <div class="stat-card warning">
+            <div class="stat-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-title">Rendez-vous aujourd'hui</div>
+            <div class="stat-value">18</div>
+            <div class="stat-desc">4 en attente de confirmation</div>
+        </div>
+        <div class="stat-card danger">
+            <div class="stat-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <div class="stat-title">Tâches en attente</div>
+            <div class="stat-value">{{nbrCarTermine}}</div>
+            <div class="stat-desc">3 tâches prioritaires</div>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-cards">
+        <!-- Véhicules en atelier -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Véhicules en atelier</h2>
+                <a href="#" class="btn btn-small">Voir tous</a>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Immatriculation</th>
+                            <th>Modèle</th>
+                            <th>Status</th>
+                            <th>Mécanicien</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let repair of ongoingRepairs">
+                            <td>{{repair.vehicleId.licensePlate}}</td>
+                            <td>{{repair.vehicleId.nameVehicle}}</td>
+                            <td><span class="status in-progress">En cours</span></td>
+                            <td>{{repair.mecanicienId.nomComplet}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Assignation des mécaniciens -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Mécaniciens disponibles</h2>
+                <a href="#" class="btn btn-small">Assigner tâches</a>
+            </div>
+            <div class="card-body">
+                <ul class="mechanic-list">
+                    <li class="mechanic-item">
+                        <div class="mechanic-info">
+                            <div class="mechanic-avatar">PL</div>
+                            <div>
+                                <div class="mechanic-name">Pierre Lefebvre</div>
+                                <div class="mechanic-task">Spécialiste moteur</div>
+                            </div>
+                        </div>
+                        <div class="task-count">3</div>
+                    </li>
+                    <li class="mechanic-item">
+                        <div class="mechanic-info">
+                            <div class="mechanic-avatar">JD</div>
+                            <div>
+                                <div class="mechanic-name">Julien Dubois</div>
+                                <div class="mechanic-task">Électricien auto</div>
+                            </div>
+                        </div>
+                        <div class="task-count">2</div>
+                    </li>
+                    <li class="mechanic-item">
+                        <div class="mechanic-info">
+                            <div class="mechanic-avatar">MR</div>
+                            <div>
+                                <div class="mechanic-name">Marie Rousseau</div>
+                                <div class="mechanic-task">Technicienne diagnostic</div>
+                            </div>
+                        </div>
+                        <div class="task-count">0</div>
+                    </li>
+                    <li class="mechanic-item">
+                        <div class="mechanic-info">
+                            <div class="mechanic-avatar">ND</div>
+                            <div>
+                                <div class="mechanic-name">Nicolas Durand</div>
+                                <div class="mechanic-task">Mécanique générale</div>
+                            </div>
+                        </div>
+                        <div class="task-count">4</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        
+
+        <!-- Rapports rapides -->
+
+    </div>
+</div>

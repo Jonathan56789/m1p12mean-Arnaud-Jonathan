@@ -8,7 +8,7 @@ const auth = require('../middleware/authmiddleware');
 // Créer une réparation
 router.post('/create',auth, async (req, res) => {
     try {
-        const { clientId, vehicleId, mecanicienId, startDate, estimatedCompletion, details } = req.body;
+        const { clientId, vehicleId, mecanicienId, startDate, estimatedCompletion, details, cost } = req.body;
 
         let repair = new Repair({
             clientId: req.userId,
@@ -16,7 +16,8 @@ router.post('/create',auth, async (req, res) => {
             mecanicienId: mecanicienId,
             startDate: startDate,
             estimatedCompletion: estimatedCompletion,
-            details: details
+            details: details, 
+            cost: cost
         })
 
         const savedRepair = await repair.save();
@@ -51,6 +52,9 @@ router.get('/myrepairs', auth, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const repair = await Repair.find()
+            .populate('vehicleId')
+            .populate('clientId')
+            .populate('mecanicienId');
         res.json(repair)
     }
     catch (error) {

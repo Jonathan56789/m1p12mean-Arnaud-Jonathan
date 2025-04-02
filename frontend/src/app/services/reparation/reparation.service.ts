@@ -10,10 +10,18 @@ export class ReparationService {
   private apiUrl = 'http://localhost:5000/api/repairs';
   private token = localStorage.getItem('token');
   constructor(private http: HttpClient) { }
+
+
+
+  getAllRepairs(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`)
+  }
+
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   }
   getRepairsByMechanics(idMeca: string) : Observable<any[]>{
+
     return this.http.get<any[]>(`${this.apiUrl}/${idMeca}`)
   }
 
@@ -23,7 +31,7 @@ export class ReparationService {
     return this.http.put(`${this.apiUrl}/${id}`, updatedData);
   }
 
-  getRepairById(id: string): Observable<any>{
+  getRepairById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/detail/${id}`)
   }
     // Récupérer l'historique des réparations
