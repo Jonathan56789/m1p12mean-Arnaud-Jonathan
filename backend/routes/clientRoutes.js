@@ -210,9 +210,11 @@ router.get('/vehicles', auth, async (req, res) => {
 //créer un vehicule
 router.post('/vehicles', auth, async (req, res) => {
   try {
-    const { licensePlate } = req.body;
+    const { userId, nameVehicle, marqueVehicle, licensePlate } = req.body;
     const vehicle = new Vehicle({
-      clientId: req.clientId,
+      userId: req.userId,
+      nameVehicle,
+      marqueVehicle,
       licensePlate
     });
     await vehicle.save();
