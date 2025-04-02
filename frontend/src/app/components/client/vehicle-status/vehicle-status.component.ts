@@ -3,6 +3,7 @@ import { ClientService } from '../../../services/client.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ReparationService } from '../../../services/reparation/reparation.service';
 @Component({
   selector: 'app-vehicle-status',
   standalone:true,
@@ -12,13 +13,13 @@ import { RouterModule } from '@angular/router';
 })
 export class VehicleStatusComponent implements OnInit{
   repairs:any[]=[];
-  constructor(private clientService: ClientService) {}
+  constructor(private reparationService: ReparationService) {}
 
   ngOnInit() {
     // this.clientService.getVehicles().subscribe((data) => {
     //   this.repairs = data; // Simule le premier véhicule
     // });
-    this.clientService.getRepairs().subscribe(
+    this.reparationService.getRepairs().subscribe(
       (data) => {
         this.repairs = data.reverse(); // Liste des réparations
       },

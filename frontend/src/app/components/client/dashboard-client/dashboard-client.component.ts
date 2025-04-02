@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { UserService } from '../../../services/user/user.service';
 @Component({
   selector: 'app-dashboard-client',
   imports: [CommonModule,FormsModule, RouterModule,SidebarComponent],
@@ -13,17 +14,17 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class DashboardClientComponent implements OnInit{
   unreadCount: number = 0;
-  clientName: string | null = null;
+  userName: string | null = null;
 
-  constructor(private clientService: ClientService, private router: Router) {}
+  constructor(private clientService: ClientService,private userService:UserService, private router: Router) {}
 
   ngOnInit() {
     this.clientService.getNotifications().subscribe((data) => {
       this.unreadCount = data.filter((n: any) => !n.read).length;
     });
-    this.clientService.getProfile().subscribe((data)=>
+    this.userService.getProfile().subscribe((data)=>
       {
-        this.clientName=data.client.name;
+        this.userName=data.user.name;
       });
   }
 
