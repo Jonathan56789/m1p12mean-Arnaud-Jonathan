@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { VehicleStatusComponent } from '../vehicle-status/vehicle-status.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { AppointmentService } from '../../../services/appointment/appointment.service';
 @Component({
   selector: 'app-overview',
   imports: [CommonModule,FormsModule, RouterModule,VehicleStatusComponent,NotificationsComponent],
@@ -15,11 +16,11 @@ import { NotificationsComponent } from '../notifications/notifications.component
 export class OverviewComponent implements OnInit{
   nextAppointment: any;
 
-  constructor(private clientService: ClientService) {}
+  constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit() {
     console.log('tttttttuuuuuu');
-    this.clientService.getAppointments().subscribe((data) => {
+    this.appointmentService.getAppointments().subscribe((data) => {
       
       this.nextAppointment = data.appointments[data.appointments.length-1]; // Simule le prochain rendez-vous
     });

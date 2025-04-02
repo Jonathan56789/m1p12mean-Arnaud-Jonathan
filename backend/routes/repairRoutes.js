@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Repair = require('../models/repairModel');
+const auth = require('../middleware/authmiddleware');
 // const validationResult= require('express-validator')
 // const jwt = require('jsonwebtoken')
 
 // Créer une réparation
-router.post('/create', async (req, res) => {
+router.post('/create',auth, async (req, res) => {
     try {
         const { clientId, vehicleId, mecanicienId, startDate, estimatedCompletion, details, cost } = req.body;
 
         let repair = new Repair({
-            clientId: clientId,
+            clientId: req.userId,
             vehicleId: vehicleId,
             mecanicienId: mecanicienId,
             startDate: startDate,
@@ -19,14 +20,33 @@ router.post('/create', async (req, res) => {
             cost: cost
         })
 
-        await repair.save();
-        res.status(201).json({ msg: 'Réparation crée avec succès' })
+        const savedRepair = await repair.save();
+        res.status(201).json(savedRepair);
     }
     catch (error) {
         res.status(500).json({ msg: 'Erreur serveur' });
     }
 })
+router.get('/myrepairs', auth, async (req, res) => {
+  try {
+    // Vérifier si le paramètre "all" est présent et égal à "true"
+    const showAll = req.query.all === 'true';
 
+    // Construire le filtre de base
+    const filter = { clientId: req.userId };
+
+    // Si showAll est false, ajouter la condition pour exclure "Terminé"
+    if (!showAll) {
+      filter.status = { $ne: 'Terminé' };
+    }
+
+    const repairs = await Repair.find(filter).populate('vehicleId');
+    res.json(repairs);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des réparations:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
 //Lire toutes les réparations
 
 router.get('/', async (req, res) => {

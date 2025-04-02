@@ -2,13 +2,20 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 const User = require('../models/userModel');
+//const upload = multer({ storage });
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const auth = require('../middleware/authmiddleware');
 // const validationResult= require('express-validator')
-const jwt = require('jsonwebtoken')
-
+//const nodemailer = require('nodemailer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
 //Créer un mécanicien
 router.post('/register', async (req, res) => {
     try {
-        const { nomComplet, email, mdp, role } = req.body;
+        const { name, email, password, role } = req.body;
 
         // Vérifier si l'email existe déjà
         let user = await User.findOne({ email: email, role: role });
@@ -16,17 +23,17 @@ router.post('/register', async (req, res) => {
 
         // Hacher le mot de passe avant de le sauvegarder
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(mdp, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // Créer le mécanicien avec le mot de passe hashé
-        user = new User({
-            nomComplet,
+        newUser = new User({
+            name,
             email,
-            mdp: hashedPassword,
+            password: hashedPassword,
             role // On enregistre le mot de passe chiffré
         });
 
-        await user.save();
+        await newUser.save();
         res.status(201).json({ msg: 'Utilisateur créé avec succès' });
 
     } catch (error) {
@@ -41,15 +48,15 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     // console.log("Login route")
     try {
-        const { email, mdp, role } = req.body;
+        const { email, password, role } = req.body;
         const user = await User.findOne({ email: email, role: role });
         if (!user) return res.status(400).json({ msg: 'Utilisateur non trouvé' });
 
-        const isMatch = await bcrypt.compare(mdp, user.mdp);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: 'Mot de passe incorrect' });
 
-        const token = jwt.sign({ id: user._id }, 'SECRET_KEY', { expiresIn: '1h' });
-        res.json({ token, user: { id: user._id, nomComplet: user.nomComplet, email: user.email } });
+        const token = jwt.sign({ userId: user._id }, 'secret_key', { expiresIn: '1h' });
+        res.json({ token, user: { userId: user._id, name: user.name, email: user.email } });
         // console.log(token)
     } catch (error) {
         console.log("Erreur")
@@ -66,17 +73,42 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
+router.get('/profile',auth, async (req, res) => {
+    try {
+      console.log("hjhj");
+      // Trouver le client dans la base de données en utilisant le clientId du token
+      let user = await User.findById(req.userId).select('-password'); // Exclut le mot de passe
+      if (!user) {
+        return res.status(404).json({ message: 'Client non trouvé' });
+      }
+  
+      // Retourner les informations du client
+      res.json({
+        message: 'Profil récupéré avec succès',
+        user
+      //   user: {
+      //     id: user._id,
+      //     name: user.name,
+      //     email: user.email,
+      //     role:user.role
+      //   }
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Erreur lors de la récupération du profil' });
+    }
+  });
 
-module.exports = router;
 
 // Get user par rôle
-router.get('/:role', async (req, res) => {
+router.get('/listuser/:role', async (req, res) => {
     try {
-        let users = await User.find({ role: req.params.role })
+        let users = await User.find({ role: req.params.role }).select('-password');
         res.json(users)
     }
     catch (error) {
         res.status(500).json({ message: error.message });
 
     }
-})
+});
+module.exports = router;

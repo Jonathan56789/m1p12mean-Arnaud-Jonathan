@@ -16,7 +16,8 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 // app.use('/mecanicien', require('./routes/mecanicienRoute'));
 // app.use('/api/client',require('./routes/clientRoutes'));
-app.use('/users', require('./routes/userRoutes'));
-app.use('/repairs', require('./routes/repairRoutes'));
-app.use('/vehicles', require('./routes/vehicleRoute'))
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/repairs', require('./routes/repairRoutes'));
+app.use('/api/vehicles', require('./routes/vehicleRoute'));
+app.use('/api/appointment',require('./routes/appointmentRoutes'));
 app.listen(PORT, () => console.log(`Serveur démarré sur le port${PORT}`));
