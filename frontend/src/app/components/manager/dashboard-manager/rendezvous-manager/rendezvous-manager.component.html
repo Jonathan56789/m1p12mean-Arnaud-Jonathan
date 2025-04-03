@@ -199,7 +199,7 @@
                                             <i class="fas fa-check me-1"></i>
                                             Confirmer
                                         </button> -->
-                                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                                        <!-- <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
                                             data-bs-target="#modalId" (click)="setFormCreateValuesAndSubmit(
                                                 rdv.clientId._id,
                                                 rdv.vehicleId._id,
@@ -207,7 +207,26 @@
                                                 rdv.serviceType
                                             )">
                                             <i class="fas fa-car-battery"></i> Assigner réparation
-                                        </button>
+                                        </button> -->
+                                        <ng-container *ngIf="!assignedAppointments[rdv._id]; else assignedBadge">
+                                            <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                                                data-bs-target="#modalId" 
+                                                (click)="setFormCreateValuesAndSubmit(
+                                                    rdv.clientId._id,
+                                                    rdv.vehicleId._id,
+                                                    35000,
+                                                    rdv.serviceType,
+                                                    rdv._id
+                                                )">
+                                                <i class="fas fa-car-battery"></i> Assigner réparation
+                                            </button>
+                                        </ng-container>
+                                        
+                                        <ng-template #assignedBadge>
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check-circle me-1"></i> Assigné
+                                            </span>
+                                        </ng-template>
                                         <div class="modal fade" id="modalId" tabindex="-1" role="dialog"
                                             aria-labelledby="modalTitleId" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -221,7 +240,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
-                                                            <form [formGroup]="formRepair" (submit)="createRepair()">
+                                                            <form [formGroup]="formRepair" (submit)="createRepair(rdv._id)">
                                                                 <div class="mb-4">
                                                                     
                                                                     <label for="mecanicienSelect"
