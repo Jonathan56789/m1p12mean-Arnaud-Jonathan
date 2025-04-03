@@ -20,7 +20,7 @@ export class OverviewComponent implements OnInit{
 
   ngOnInit() {
     console.log('tttttttuuuuuu');
-    this.appointmentService.getAppointments().subscribe((data) => {
+    this.appointmentService.getMyAppointments().subscribe((data) => {
       
       this.nextAppointment = data.appointments[data.appointments.length-1]; // Simule le prochain rendez-vous
     });

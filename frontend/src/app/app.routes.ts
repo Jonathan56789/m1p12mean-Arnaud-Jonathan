@@ -18,7 +18,8 @@ import { DashboardManagerComponent } from './components/manager/dashboard-manage
 import { AccueilManagerComponent } from './components/manager/dashboard-manager/accueil-manager/accueil-manager.component';
 import { RendezvousManagerComponent } from './components/manager/dashboard-manager/rendezvous-manager/rendezvous-manager.component';
 import { ReparationManagerComponent } from './components/manager/dashboard-manager/reparation-manager/reparation-manager.component';
-import { ProfileComponent } from './components/client/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
 
 export const routes: Routes = [
     {
@@ -89,6 +90,10 @@ export const routes: Routes = [
             {
                 path: 'reparation', 
                 component: ReparationManagerComponent
+            },
+            {
+                path: 'profile', 
+                component: ProfileComponent
             }
         ]
     }

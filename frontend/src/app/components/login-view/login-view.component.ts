@@ -59,15 +59,20 @@ export class LoginViewComponent {
         err => {
           // Affichage de l'erreur
         }
-      //   {
-      //     next: (response) => {
-      //         this.authService.saveToken(response.token);
-      //         this.router.navigate(['dashboard-client']);
-      //     },
-      //     error: (err) => {}
-      // }
       );
     }
-
+    else if(this.applyForm.value.role == 'manager'){
+      this.authService.login(this.applyForm.value.email, this.applyForm.value.mdp,this.applyForm.value.role).subscribe(
+        res => {
+          console.log("Afichage token");
+          this.authService.saveToken(res.token);
+          console.log(localStorage.getItem('token'));
+          this.router.navigate(['manager/dashboard/accueil']);
+        },
+        err => {
+          // Affichage de l'erreur
+        }
+      );
+    }
   }
 }

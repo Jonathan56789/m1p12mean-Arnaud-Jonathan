@@ -18,7 +18,7 @@ import { error } from 'console';
 })
 export class RendezvousManagerComponent {
   appointments: any[] = [];
-
+  userName: string | null = null;
   // En attente de confirmation
   planifiedAppointments: any[] = [];
   // Appointments en attente de date
@@ -34,6 +34,10 @@ export class RendezvousManagerComponent {
   ngOnInit() {
     this.loadAppointment();
     this.loadMecanicienNonOccupe();
+    this.userService.getProfile().subscribe((data)=>
+      {
+        this.userName=data.user.name;
+      });
   }
   loadAppointment() {
     this.appointmentService.getAppointments().subscribe(
