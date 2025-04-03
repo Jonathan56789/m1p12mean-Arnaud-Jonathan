@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth/auth.service';
   providedIn: 'root'
 })
 export class AuthGard implements CanActivate{
-  mecanicienService : MecanicienServiceService = inject(MecanicienServiceService)
+//   mecanicienService : MecanicienServiceService = inject(MecanicienServiceService)
   authService : AuthService= inject(AuthService);
   router: Router= inject(Router);
   //constructor(private authService: AuthService, private router: Router) {}
