@@ -6,11 +6,12 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const auth = require('../middleware/authmiddleware');
+const mecanicienModel = require('../models/mecanicienModel');
 // const validationResult= require('express-validator')
 //const nodemailer = require('nodemailer');
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+    destination: (req, file, cb) => cb(null, 'uploads/'),
+    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
 });
 //Créer un mécanicien
 router.post('/register', async (req, res) => {
@@ -35,6 +36,12 @@ router.post('/register', async (req, res) => {
 
         await newUser.save();
         res.status(201).json({ msg: 'Utilisateur créé avec succès' });
+        if (role === "mecanicien") {
+            newInfoSup = new mecanicienModel({
+                mecanicienId: newUser._id,
+            })
+            await newInfoSup.save()
+        }
 
     } catch (error) {
         if (error.code === 11000) {
@@ -73,8 +80,11 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
-router.get('/profile',auth, async (req, res) => {
+router.get('/profile', auth, async (req, res) => {
     try {
+
+        
+
       console.log("hjhj");
       // Trouver le client dans la base de données en utilisant le clientId du token
       let user = await User.findById(req.userId).select('-password'); // Exclut le mot de passe
@@ -93,11 +103,12 @@ router.get('/profile',auth, async (req, res) => {
           role:user.role
         }
       });
+
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Erreur lors de la récupération du profil' });
+        console.error(error);
+        res.status(500).json({ message: 'Erreur lors de la récupération du profil' });
     }
-  });
+});
 
 
 // Get user par rôle
@@ -111,6 +122,19 @@ router.get('/listuser/:role', async (req, res) => {
 
     }
 });
+
+
+router.get('/infosup', async (req, res) => {
+    try {
+        let infoSup = await mecanicienModel.find({status : 'non-occupé'}).populate('mecanicienId');
+        res.json(infoSup)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+
+    }
+})
+
 // Dans votre fichier de routes (ajoutez ceci après la route profile)
 // Mettre à jour le profil utilisateur
 router.put('/profile', auth, async (req, res) => {
@@ -162,4 +186,7 @@ router.put('/profile', auth, async (req, res) => {
         }
     }
 });
+
 module.exports = router;
+
+

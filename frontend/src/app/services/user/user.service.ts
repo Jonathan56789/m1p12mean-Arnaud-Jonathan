@@ -14,8 +14,14 @@ export class UserService {
   getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/profile`, { headers: this.getHeaders() });
   }
+
+
+  getMecanonOccupe() : Observable<any>{
+    return this.http.get(`${this.apiUrl}/infosup`)
+
   // Nouvelle méthode pour mettre à jour le profil
   updateProfile(userData: { name?: string; email?: string }): Observable<any> {
     return this.http.put(`${this.apiUrl}/profile`, userData, { headers: this.getHeaders() });
+
   }
 }

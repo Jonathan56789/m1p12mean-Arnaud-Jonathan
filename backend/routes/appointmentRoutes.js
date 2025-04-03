@@ -7,10 +7,11 @@ const auth = require('../middleware/authmiddleware'); // Importation explicite d
 router.get('/', auth, async (req, res) => {
   try {
     const appointments = await Appointment
-      .find({ clientId: req.userId })
+      .find()
       .populate('vehicleId')
+      .populate('clientId')
       .sort({ date: -1 });
-    
+
     if (!appointments.length) {
       return res.status(404).json({ message: 'Aucun rendez-vous trouvé' });
     }
@@ -26,24 +27,37 @@ router.post('/', auth, async (req, res) => {
     if (!vehicleId || !date || !serviceType) {
       return res.status(400).json({ message: 'Tous les champs sont requis' });
     }
-    
-    const appointment = new Appointment({ 
-      clientId: req.userId, 
-      vehicleId, 
-      date, 
-      serviceType 
+
+    const appointment = new Appointment({
+      clientId: req.userId,
+      vehicleId,
+      date,
+      serviceType
     });
     await appointment.save();
-    
-    await new Notification({ 
-      clientId: req.userId, 
-      message: 'Rendez-vous enregistré' 
+
+    await new Notification({
+      clientId: req.userId,
+      message: 'Rendez-vous enregistré'
     }).save();
-    
+
     res.status(201).json({ message: 'Rendez-vous créé avec succès', appointment });
   } catch (error) {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 });
+
+//Modifier un rdv
+router.put('/:id',async (req, res) => {
+  try {
+    console.log("Je suis ici")
+    const appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    // console.log(appointment)
+    res.json(appointment )
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
 
 module.exports = router;

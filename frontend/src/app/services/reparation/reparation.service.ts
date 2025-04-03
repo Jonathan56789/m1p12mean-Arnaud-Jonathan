@@ -22,7 +22,9 @@ export class ReparationService {
   }
   getRepairsByMechanics() : Observable<any[]>{
 
+
     return this.http.get<any[]>(`${this.apiUrl}/reparationMeca`, { headers: this.getHeaders() });
+
   }
 
   updateRepair(id: string, updatedData: { status: string }): Observable<any> {
@@ -38,8 +40,13 @@ export class ReparationService {
   getRepairs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/myrepairs`, { headers: this.getHeaders() });
   }
+
+  createRepair(repair: any) : Observable<any>{
+    return this.http.post(`${this.apiUrl}/create`, repair)
+
   // Récupérer l'historique des réparations
   getHistoryRepairs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/history`, { headers: this.getHeaders() });
+
   }
 }

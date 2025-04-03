@@ -16,7 +16,15 @@ export class AppointmentService {
   getAppointments(): Observable<any> {
     return this.http.get(`${this.apiUrl}/`, { headers: this.getHeaders() });
   }
+  updateAppointment(id: string, updatedData: { status: string }): Observable<any> {
+    console.log("Update Fonction service")
+    console.log(`${this.apiUrl}/${id}`)
+    return this.http.put(`${this.apiUrl}/${id}`, updatedData);
+  }
   bookAppointment(appointment: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/`, appointment, { headers: this.getHeaders() });
   }
+
+  
+
 }
