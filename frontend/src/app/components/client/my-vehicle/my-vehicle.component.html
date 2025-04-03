@@ -19,7 +19,31 @@
           id="licensePlate"
           #licensePlateInput
           (input)="licensePlate = licensePlateInput.value"
-          placeholder="Ex: AB-123-CD"
+          placeholder="Ex: 1111 TAA"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="nameVehicle" class="form-label">Nom véhicule</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nameVehicle"
+          #nameVehicleInput
+          (input)="nameVehicle = nameVehicleInput.value"
+          placeholder="Ex: MERCEDES"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="marqueVehicle" class="form-label">Marque véhicule</label>
+        <input
+          type="text"
+          class="form-control"
+          id="marqueVehicle"
+          #marqueVehicleInput
+          (input)="marqueVehicle = marqueVehicleInput.value"
+          placeholder="Ex: 1513"
           required
         />
       </div>

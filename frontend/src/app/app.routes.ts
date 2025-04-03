@@ -18,6 +18,7 @@ import { DashboardManagerComponent } from './components/manager/dashboard-manage
 import { AccueilManagerComponent } from './components/manager/dashboard-manager/accueil-manager/accueil-manager.component';
 import { RendezvousManagerComponent } from './components/manager/dashboard-manager/rendezvous-manager/rendezvous-manager.component';
 import { ReparationManagerComponent } from './components/manager/dashboard-manager/reparation-manager/reparation-manager.component';
+import { ProfileComponent } from './components/client/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -27,7 +28,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/manager/dashboard/accueil',
+        redirectTo: '/login',
         pathMatch: 'full'
     },
     {
@@ -44,6 +45,7 @@ export const routes: Routes = [
             { path: 'quotes', component: QuoteComponent, title: 'Demande de devis' },
             { path: 'notifications', component: NotificationsComponent, title: 'Notifications' },
             { path: 'my-vehicle', component: MyVehicleComponent, title: 'Mes Vehicules' },
+            { path: 'profile', component: ProfileComponent, title: 'Profile' },
         ]
     },
     {

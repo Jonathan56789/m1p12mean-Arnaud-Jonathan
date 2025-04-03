@@ -14,4 +14,12 @@ export class VehicleService {
   getMyVehicles(): Observable<any> {
       return this.http.get(`${this.apiUrl}/myvehicles`, { headers: this.getHeaders() });
   }
+  createVehicle(vehicle: { licensePlate: string, nameVehicle:string,marqueVehicle:string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, vehicle, { headers: this.getHeaders() });
+  }
+  // Nouvelle méthode pour supprimer un véhicule
+  deleteVehicle(vehicleId: string): Observable<any> {
+    console.log(vehicleId);
+    return this.http.delete(`${this.apiUrl}/${vehicleId}`, { headers: this.getHeaders() });
+  }
 }

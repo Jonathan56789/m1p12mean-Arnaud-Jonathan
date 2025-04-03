@@ -85,13 +85,13 @@ router.get('/profile',auth, async (req, res) => {
       // Retourner les informations du client
       res.json({
         message: 'Profil récupéré avec succès',
-        user
-      //   user: {
-      //     id: user._id,
-      //     name: user.name,
-      //     email: user.email,
-      //     role:user.role
-      //   }
+       // user
+        user: {
+          userId: user._id,
+          name: user.name,
+          email: user.email,
+          role:user.role
+        }
       });
     } catch (error) {
       console.error(error);
@@ -109,6 +109,57 @@ router.get('/listuser/:role', async (req, res) => {
     catch (error) {
         res.status(500).json({ message: error.message });
 
+    }
+});
+// Dans votre fichier de routes (ajoutez ceci après la route profile)
+// Mettre à jour le profil utilisateur
+router.put('/profile', auth, async (req, res) => {
+    try {
+        const { name, email } = req.body;
+        
+        // Vérifier si le nouvel email est déjà utilisé par un autre utilisateur
+        if (email) {
+            const existingUser = await User.findOne({ 
+                email: email, 
+                _id: { $ne: req.userId } 
+            });
+            if (existingUser) {
+                return res.status(400).json({ msg: 'Cet email est déjà utilisé' });
+            }
+        }
+
+        // Préparer les champs à mettre à jour
+        const updateFields = {};
+        if (name) updateFields.name = name;
+        if (email) updateFields.email = email;
+
+        // Mettre à jour l'utilisateur
+        const updatedUser = await User.findByIdAndUpdate(
+            req.userId,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+        ).select('-password');
+
+        if (!updatedUser) {
+            return res.status(404).json({ msg: 'Utilisateur non trouvé' });
+        }
+
+        res.json({
+            msg: 'Profil mis à jour avec succès',
+            user: {
+                userId: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                role: updatedUser.role
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        if (error.code === 11000) {
+            res.status(400).json({ msg: 'Cet email est déjà utilisé' });
+        } else {
+            res.status(500).json({ msg: 'Erreur lors de la mise à jour du profil' });
+        }
     }
 });
 module.exports = router;

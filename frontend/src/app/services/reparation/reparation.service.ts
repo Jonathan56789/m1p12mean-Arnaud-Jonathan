@@ -20,9 +20,9 @@ export class ReparationService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   }
-  getRepairsByMechanics(idMeca: string) : Observable<any[]>{
+  getRepairsByMechanics() : Observable<any[]>{
 
-    return this.http.get<any[]>(`${this.apiUrl}/${idMeca}`)
+    return this.http.get<any[]>(`${this.apiUrl}/reparationMeca`, { headers: this.getHeaders() });
   }
 
   updateRepair(id: string, updatedData: { status: string }): Observable<any> {
@@ -34,8 +34,12 @@ export class ReparationService {
   getRepairById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/detail/${id}`)
   }
-    // Récupérer l'historique des réparations
+    // Récupérer status des réparations
   getRepairs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/myrepairs`, { headers: this.getHeaders() });
+  }
+  // Récupérer l'historique des réparations
+  getHistoryRepairs(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/history`, { headers: this.getHeaders() });
   }
 }
