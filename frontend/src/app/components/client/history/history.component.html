@@ -27,9 +27,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let repair of repairs">
-                  <td>{{ repair.date | date:'dd MMMM yyyy' }}</td>
-                  <td>{{ repair.serviceType }}</td>
-                  <td>{{ repair.cost }} €</td>
+                  <td>{{ repair.endDate | date:'dd MMMM yyyy' }}</td>
+                  <td>{{ repair.details }}</td>
+                  <td>{{ repair.cost }} Ariary</td>
                   <td>
                     <button class="btn btn-outline-primary btn-sm" (click)="downloadInvoice(repair.invoice)" *ngIf="repair.invoice">
                       <i class="bi bi-download me-1"></i> Télécharger

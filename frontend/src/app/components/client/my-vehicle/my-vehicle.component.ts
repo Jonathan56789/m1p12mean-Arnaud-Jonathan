@@ -16,6 +16,8 @@ export class MyVehicleComponent {
   vehicles: any[] = [];
   showAddForm: boolean = false;
   licensePlate: string = '';
+  nameVehicle: string='ze';
+  marqueVehicle:string='ze';
 
   constructor(private vehicleService: VehicleService,private clientService: ClientService) {}
 
@@ -41,7 +43,8 @@ export class MyVehicleComponent {
       return;
     }
 
-    this.clientService.createVehicle({ licensePlate: this.licensePlate }).subscribe(
+    this.vehicleService.createVehicle(
+      { licensePlate: this.licensePlate ,nameVehicle: this.nameVehicle,marqueVehicle:this.marqueVehicle}).subscribe(
       (res) => {
         alert('Véhicule ajouté avec succès');
         this.licensePlate = '';
@@ -49,15 +52,15 @@ export class MyVehicleComponent {
         this.loadVehicles(); // Rafraîchir la liste
       },
       (err) => {
-        console.error('Erreur lors de l’ajout du véhicule', err);
-        alert('Erreur lors de l’ajout du véhicule');
+        console.error('Erreur lors de ajout du véhicule', err);
+        alert('Erreur lors de jout du véhicule');
       }
     );
   }
 
   deleteVehicle(vehicleId: string) {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
-      this.clientService.deleteVehicle(vehicleId).subscribe(
+      this.vehicleService.deleteVehicle(vehicleId).subscribe(
         (res) => {
           alert('Véhicule supprimé avec succès');
           this.loadVehicles(); // Rafraîchir la liste

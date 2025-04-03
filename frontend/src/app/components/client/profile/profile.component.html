@@ -1,0 +1,48 @@
+<!-- profile.component.html -->
+<div class="profile-container">
+    <div *ngIf="loading" class="loading">
+      <p>Chargement du profil...</p>
+    </div>
+  
+    <div *ngIf="error && !loading" class="error-message">
+      <p>{{ error }}</p>
+      <button (click)="loadProfile()" class="retry-btn">Réessayer</button>
+    </div>
+  
+    <div *ngIf="!loading && !error" class="profile-content">
+      <h2>Mon Profil</h2>
+      
+      <div class="profile-details">
+        <div *ngIf="!isEditing">
+          <div class="profile-field">
+            <label>Nom :</label>
+            <span>{{ userProfile.name }}</span>
+          </div>
+          <div class="profile-field">
+            <label>Email :</label>
+            <span>{{ userProfile.email }}</span>
+          </div>
+          <div class="profile-field">
+            <label>Rôle :</label>
+            <span>{{ userProfile.role }}</span>
+          </div>
+          <button (click)="toggleEdit()" class="edit-btn">Modifier</button>
+        </div>
+  
+        <div *ngIf="isEditing" class="edit-form">
+          <div class="profile-field">
+            <label>Nom :</label>
+            <input type="text" [(ngModel)]="editedProfile.name">
+          </div>
+          <div class="profile-field">
+            <label>Email :</label>
+            <input type="email" [(ngModel)]="editedProfile.email">
+          </div>
+          <div class="form-actions">
+            <button (click)="updateProfile()" class="save-btn">Sauvegarder</button>
+            <button (click)="toggleEdit()" class="cancel-btn">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

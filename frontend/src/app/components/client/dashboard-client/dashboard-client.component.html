@@ -21,9 +21,9 @@
             <i class="bi bi-person-circle me-1"></i> {{ userName }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Mon profil</a></li>
+            <li><a class="dropdown-item" routerLink="/dashboard-client/profile"><i class="bi bi-person me-2"></i> Mon profil</a></li>
             <li><a class="dropdown-item" routerLink="/dashboard-client/my-vehicle"><i class="bi bi-car-front me-2"></i> Mes véhicules</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Paramètres</a></li>
+            <!-- <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Paramètres</a></li> -->
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></li>
           </ul>

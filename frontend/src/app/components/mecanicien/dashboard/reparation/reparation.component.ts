@@ -4,6 +4,7 @@ import { ReparationService } from '../../../../services/reparation/reparation.se
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../../../services/user/user.service';
 
 
 
@@ -24,10 +25,14 @@ export class ReparationComponent {
   todayDate: string = new Date().toISOString().split('T')[0];
 
 
-  constructor(private mecanicienService: MecanicienServiceService, private reparationService: ReparationService) {
-    this.mecanicienService.user$.subscribe(user => {
-      this.meca = user
-    });
+  constructor(
+    private mecanicienService: MecanicienServiceService, 
+    private reparationService: ReparationService,
+    private userService: UserService) {
+    this.userService.getProfile().subscribe((data)=>
+      {
+        this.meca=data.user;
+      });
   }
 
   // Récupération des données de réparation lors du chargement du composant
@@ -35,12 +40,12 @@ export class ReparationComponent {
     this.loadRepairs();
   }
   loadRepairs() {
-    if (!this.meca || !this.meca.id) {
-      console.error("L'ID du mécanicien n'est pas disponible.");
-      return;
-    }
+    // if (!this.meca || !this.meca.id) {
+    //   console.error("L'ID du mécanicien n'est pas disponible.");
+    //   return;
+    // }
 
-    this.reparationService.getRepairsByMechanics(this.meca.id).subscribe(
+    this.reparationService.getRepairsByMechanics().subscribe(
       (data) => {
         this.repairs = data;
         // console.log(this.repairs)
