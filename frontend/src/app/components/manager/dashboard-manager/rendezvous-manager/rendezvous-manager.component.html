@@ -35,17 +35,20 @@
     <!-- Status Tabs -->
     <ul class="nav nav-tabs" id="statusTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link en-cours active" id="in-progress-tab" data-bs-toggle="tab" href="#in-progress" role="tab" aria-controls="in-progress" aria-selected="true">
-                <i class="fas fa-spinner me-2"></i>En cours
+            <a class="nav-link en-cours active" id="in-progress-tab" data-bs-toggle="tab" href="#in-progress" role="tab"
+                aria-controls="in-progress" aria-selected="true">
+                <i class="fas fa-spinner me-2"></i>A venir
             </a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link en-attente" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="false">
-                <i class="fas fa-clock me-2"></i>En attente
+            <a class="nav-link en-attente" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab"
+                aria-controls="pending" aria-selected="false">
+                <i class="fas fa-clock me-2"></i>En attente de confirmation
             </a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link termine" id="completed-tab" data-bs-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">
+            <a class="nav-link termine" id="completed-tab" data-bs-toggle="tab" href="#completed" role="tab"
+                aria-controls="completed" aria-selected="false">
                 <i class="fas fa-check-circle me-2"></i>Terminé
             </a>
         </li>
@@ -57,7 +60,7 @@
         <div class="tab-pane fade show active" id="in-progress" role="tabpanel" aria-labelledby="in-progress-tab">
             <div class="card card-in-progress">
                 <div class="card-header">
-                    <h2 class="card-title">Rendez-vous en cours</h2>
+                    <h2 class="card-title">Rendez-vous confirmé</h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -67,44 +70,31 @@
                                     <th>Client & Véhicule</th>
                                     <th>Service</th>
                                     <th>Date & Heure</th>
-                                    <th>Statut</th>
+                                    <!-- <th>Statut</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let rdv of ongoingAppointments">
                                     <td>
                                         <div class="client-info">
                                             <div class="client-avatar">SM</div>
                                             <div>
-                                                <div class="client-name">Sophie Martin</div>
-                                                <div class="client-car">Renault Clio (AB-123-CD)</div>
+                                                <div class="client-name">{{rdv.clientId.name}}</div>
+                                                <div class="client-car">{{rdv.vehicleId.nameVehicle}}
+                                                    ({{rdv.vehicleId.licensePlate}})</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>Révision complète</td>
-                                    <td>02/04/2025 10:00</td>
-                                    <td><span class="status in-progress">En cours</span></td>
+                                    <td>{{rdv.serviceType}}</td>
+                                    <td>{{rdv.date | date:'dd/MM/yyyy'}}</td>
+                                    <!-- <td><span class="status in-progress">En cours</span></td> -->
                                     <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-small">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-eye"></i> Voir détails
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-edit"></i> Modifier
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-check"></i> Marquer terminé
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-times"></i> Annuler
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <button type="button" class="btn btn-outline-dark btn-sm"
+                                            (click)="setFormValuesAndSubmit(rdv._id, 'Terminé')">
+                                            <i class="fas fa-check me-1"></i>
+                                            Marquer comme terminer
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -114,11 +104,11 @@
             </div>
         </div>
 
-        <!-- En attente Tab -->
+        <!-- En attente de confirmation -->
         <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
             <div class="card card-pending">
                 <div class="card-header">
-                    <h2 class="card-title">Rendez-vous en attente</h2>
+                    <h2 class="card-title">Rendez-vous en attente de confirmation</h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -127,45 +117,41 @@
                                 <tr>
                                     <th>Client & Véhicule</th>
                                     <th>Service</th>
-                                    <th>Date & Heure</th>
-                                    <th>Statut</th>
+                                    <th>Date & Heure demandé</th>
+                                    <!-- <th>Statut</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let rdv of planifiedAppointments">
                                     <td>
                                         <div class="client-info">
-                                            <div class="client-avatar">EP</div>
+                                            <div class="client-avatar">SM</div>
                                             <div>
-                                                <div class="client-name">Emma Petit</div>
-                                                <div class="client-car">Citroën C3 (IJ-789-KL)</div>
+                                                <div class="client-name">{{rdv.clientId.name}}</div>
+                                                <div class="client-car">{{rdv.vehicleId.nameVehicle}}
+                                                    ({{rdv.vehicleId.licensePlate}})</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>Changement de batterie</td>
-                                    <td>03/04/2025 14:00</td>
-                                    <td><span class="status pending">En attente</span></td>
+                                    <td>{{rdv.serviceType}}</td>
+                                    <td>{{rdv.date | date:'dd/MM/yyyy'}}</td>
+                                    <!-- <td><span class="status in-progress">En cours</span></td> -->
                                     <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-small">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-eye"></i> Voir détails
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-check"></i> Confirmer
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-calendar-alt"></i> Reprogrammer
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-times"></i> Annuler
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <!-- <button type="button" class="btn btn-outline-dark">
+                                            <i class="fas fa-check me-1"></i>
+                                            Confirmer
+                                        </button> -->
+                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                            (click)="setFormValuesAndSubmit(rdv._id, 'Confirmé')">
+                                            <i class="fas fa-check me-1"></i> Confirmer
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <!-- <i class="fas fa-check me-1"></i> -->
+                                            <i class="fas fa-calendar"></i>
+                                            Décaler
+                                        </button>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -189,39 +175,116 @@
                                     <th>Client & Véhicule</th>
                                     <th>Service</th>
                                     <th>Date & Heure</th>
-                                    <th>Statut</th>
+                                    <!-- <th>Statut</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let rdv of completedAppointments">
                                     <td>
                                         <div class="client-info">
-                                            <div class="client-avatar">TB</div>
+                                            <div class="client-avatar">SM</div>
                                             <div>
-                                                <div class="client-name">Thomas Bernard</div>
-                                                <div class="client-car">Peugeot 308 (EF-456-GH)</div>
+                                                <div class="client-name">{{rdv.clientId.name}}</div>
+                                                <div class="client-car">{{rdv.vehicleId.nameVehicle}}
+                                                    ({{rdv.vehicleId.licensePlate}})</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>Changement plaquettes</td>
-                                    <td>02/04/2025 11:30</td>
-                                    <td><span class="status completed">Terminé</span></td>
+                                    <td>{{rdv.serviceType}}</td>
+                                    <td>{{rdv.date | date:'dd/MM/yyyy'}}</td>
+                                    <!-- <td><span class="status in-progress">En cours</span></td> -->
                                     <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-small">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-eye"></i> Voir détails
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-file-invoice"></i> Générer facture
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-envelope"></i> Contacter client
-                                                </a>
+                                        <!-- <button type="button" class="btn btn-outline-dark">
+                                            <i class="fas fa-check me-1"></i>
+                                            Confirmer
+                                        </button> -->
+                                        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                                            data-bs-target="#modalId" (click)="setFormCreateValuesAndSubmit(
+                                                rdv.clientId._id,
+                                                rdv.vehicleId._id,
+                                                35000,
+                                                rdv.serviceType
+                                            )">
+                                            <i class="fas fa-car-battery"></i> Assigner réparation
+                                        </button>
+                                        <div class="modal fade" id="modalId" tabindex="-1" role="dialog"
+                                            aria-labelledby="modalTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary text-white">
+                                                        <h5 class="modal-title" id="modalTitleId">
+                                                            Réservation de mécanicien
+                                                        </h5>
+                                                        <button type="button" class="btn-close bg-white"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <form [formGroup]="formRepair" (submit)="createRepair()">
+                                                                <div class="mb-4">
+                                                                    
+                                                                    <label for="mecanicienSelect"
+                                                                        class="form-label fw-bold">Sélectionnez un
+                                                                        mécanicien</label>
+                                                                    <select class="form-select form-select-lg shadow-sm"
+                                                                        required formControlName="mecanicienId">
+                                                                        <option value="" selected disabled>Choisir un
+                                                                            mécanicien...</option>
+                                                                        <option *ngFor="let meca of mecanicienNonOccupe"
+                                                                            [value]="meca.mecanicienId._id">
+                                                                            {{meca.mecanicienId.name}}</option>
+
+                                                                    </select>
+                                                                    <div class="form-text text-muted">Veuillez
+                                                                        sélectionner un mécanicien disponible</div>
+                                                                </div>
+
+                                                                <div class="mb-4">
+                                                                    <label for="dateDebut"
+                                                                        class="form-label fw-bold">Date de début</label>
+                                                                    <input type="date"
+                                                                        class="form-control form-control-lg shadow-sm"
+                                                                        id="dateDebut" required
+                                                                        formControlName="startDate" />
+                                                                    <div class="form-text text-muted">Sélectionnez la
+                                                                        date souhaitée pour votre rendez-vous
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="commentaire"
+                                                                        class="form-label fw-bold">Commentaire
+                                                                        (optionnel)</label>
+                                                                    <textarea class="form-control shadow-sm"
+                                                                        id="commentaire" rows="3"
+                                                                        placeholder="Décrivez brièvement votre besoin..."></textarea>
+                                                                </div>
+                                                                <input type="hidden" formControlName="clientId"
+                                                                    [value]="rdv.clientId._id">
+                                                                <input type="hidden" formControlName="vehicleId"
+                                                                    [value]="rdv.vehicleId.nameVehicle">
+                                                                <input type="hidden" formControlName="cost"
+                                                                    value="35000">
+                                                                <input type="hidden" formControlName="details"
+                                                                    value={{rdv.serviceType}}>
+                                                                <button type="submit" class="btn btn-primary shadow">
+                                                                    <i class="bi bi-calendar-check"></i> Confirmer
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer bg-light">
+                                                        <button type="button" class="btn btn-secondary shadow"
+                                                            data-bs-dismiss="modal">
+                                                            Annuler
+                                                        </button>
+
+                                                        <button type="submit" class="btn btn-primary shadow">
+                                                            <i class="bi bi-calendar-check"></i> Confirmer
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>

@@ -6,12 +6,12 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:5000/api/client';
+  private apiUrl = 'http://localhost:5000/api/users';
 
     constructor(private http: HttpClient) {}
 
-    login(email: string, password: string): Observable<any> {
-        return this.http.post(`${this.apiUrl}/login`, { email, password });
+    login(email: string, password: string,role: string): Observable<any> {
+        return this.http.post(`${this.apiUrl}/login`, { email, password,role });
     }
 
     saveToken(token: string) {
