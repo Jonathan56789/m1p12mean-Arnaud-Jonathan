@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component ,OnInit} from '@angular/core';
+import { RouterModule ,Router} from '@angular/router';
 import { ReparationService } from '../../../../services/reparation/reparation.service';
+import { UserService } from '../../../../services/user/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-accueil-manager',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,FormsModule],
   templateUrl: './accueil-manager.component.html',
   styleUrl: './accueil-manager.component.css'
 })
@@ -15,16 +17,20 @@ export class AccueilManagerComponent {
   completedRepairs: any[] = [];
   ongoingRepairs: any[] = [];
   plannedRepairs: any[] = [];
-
+  userName: string | null = null;
   //Nombre de véhicule au garage
   nbrCarEnCours : Number = 0; 
   nbrCarTermine : Number = 0;
 
 
-  constructor(private reparationService: ReparationService) { }
+  constructor(private reparationService: ReparationService,private userService:UserService, private router: Router) { }
 
   ngOnInit() {
     this.loadRepairs();
+    this.userService.getProfile().subscribe((data)=>
+      {
+        this.userName=data.user.name;
+      });
   }
   loadRepairs() {
     this.reparationService.getAllRepairs().subscribe(
@@ -46,4 +52,5 @@ export class AccueilManagerComponent {
       }
     )
   }
+ 
 }

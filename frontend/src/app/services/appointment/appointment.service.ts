@@ -16,6 +16,9 @@ export class AppointmentService {
   getAppointments(): Observable<any> {
     return this.http.get(`${this.apiUrl}/`, { headers: this.getHeaders() });
   }
+  getMyAppointments(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/myappointment`, { headers: this.getHeaders() });
+  }
   updateAppointment(id: string, updatedData: { status: string }): Observable<any> {
     console.log("Update Fonction service")
     console.log(`${this.apiUrl}/${id}`)

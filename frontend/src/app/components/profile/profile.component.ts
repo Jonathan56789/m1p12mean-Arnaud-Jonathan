@@ -1,5 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
-import { UserService } from '../../../services/user/user.service';
+import { UserService } from '../../services/user/user.service';
 import { catchError, throwError } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

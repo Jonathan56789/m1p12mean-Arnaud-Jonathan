@@ -20,7 +20,22 @@ router.get('/', auth, async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 });
+router.get('/myappointment', auth, async (req, res) => {
+  try {
+    const appointments = await Appointment
+      .find({clientId:req.userId})
+      .populate('vehicleId')
+      .populate('clientId')
+      .sort({ date: -1 });
 
+    if (!appointments.length) {
+      return res.status(404).json({ message: 'Aucun rendez-vous trouvé' });
+    }
+    res.json({ message: 'Rendez-vous récupérés avec succès', appointments });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
+  }
+});
 router.post('/', auth, async (req, res) => {
   try {
     const { vehicleId, date, serviceType } = req.body;
