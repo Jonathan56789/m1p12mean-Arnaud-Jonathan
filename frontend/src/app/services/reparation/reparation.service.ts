@@ -43,7 +43,7 @@ export class ReparationService {
 
   createRepair(repair: any) : Observable<any>{
     return this.http.post(`${this.apiUrl}/create`, repair)
-
+  }
   // Récupérer l'historique des réparations
   getHistoryRepairs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/history`, { headers: this.getHeaders() });
