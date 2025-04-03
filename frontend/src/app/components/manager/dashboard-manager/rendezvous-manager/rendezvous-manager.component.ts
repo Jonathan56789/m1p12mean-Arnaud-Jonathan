@@ -27,6 +27,8 @@ export class RendezvousManagerComponent {
 
   mecanicienNonOccupe: any[] = [];
 
+  assignedAppointments: { [key: string]: boolean } = {};
+
   constructor(private appointmentService: AppointmentService, private userService: UserService ,private reparationService: ReparationService) {
 
   }
@@ -117,7 +119,7 @@ export class RendezvousManagerComponent {
   })
 
 
-  setFormCreateValuesAndSubmit(clientId: string, vehicleId: string, cost: number, details: string) {
+  setFormCreateValuesAndSubmit(clientId: string, vehicleId: string, cost: number, details: string,rdvId: string) {
 
     console.log("setFormCreateValuesAndSubmit")
     this.formRepair.patchValue({
@@ -130,14 +132,19 @@ export class RendezvousManagerComponent {
     })
 
     console.log("Form create repair", this.formRepair.value.mecanicienId)
-    // this.createRepair()
+    this.createRepair(rdvId)
   }
-  createRepair() {
+  createRepair(rdvId : string) {
     console.log("Create repair" , this.formRepair.value)  
     
     this.reparationService.createRepair(this.formRepair.value).subscribe(
       (data)=>{
         console.log("Réparation crée avec succès")
+
+         // Assure-toi que l'ID du RDV est dans le formulaire
+        if (rdvId) {
+          this.assignedAppointments[rdvId] = true;
+        }
       },
       (error)=>{
         console.error("Erreur")
