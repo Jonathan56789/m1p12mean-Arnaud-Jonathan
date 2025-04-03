@@ -19,7 +19,9 @@ router.post('/create', async (req, res) => {
             // estimatedCompletion: estimatedCompletion,
             details: details,
             cost: cost
-        })
+        });
+
+
         const savedRepair = await repair.save();
         const updatedInfoSup = await Infosup.findOneAndUpdate(
             { mecanicienId: savedRepair.mecanicienId }, // Critère de recherche
@@ -53,13 +55,36 @@ router.get('/myrepairs', auth, async (req, res) => {
             filter.status = { $ne: 'Terminé' };
         }
 
-        const repairs = await Repair.find(filter).populate('vehicleId');
-        res.json(repairs);
-    } catch (error) {
-        console.error('Erreur lors de la récupération des réparations:', error);
-        res.status(500).json({ message: 'Erreur serveur' });
-    }
+
+        
+
+    const repairs = await Repair.find(filter).populate('vehicleId')
+                                             .populate('mecanicienId');
+    res.json(repairs);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des réparations:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+
 });
+//history
+router.get('/history', auth, async (req, res) => {
+    try {
+      // Construire le filtre de base
+      const filter = { clientId: req.userId };
+  
+      // Si showAll est false, ajouter la condition pour exclure "Terminé"
+        filter.status = 'Terminé' ;
+      
+  
+      const repairs = await Repair.find(filter).populate('vehicleId')
+                                               .populate('mecanicienId');
+      res.json(repairs);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des réparations:', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+    }
+  });
 //Lire toutes les réparations
 
 router.get('/', async (req, res) => {
@@ -87,9 +112,9 @@ router.put('/:id', async (req, res) => {
 })
 
 //Get réparation par mécanicien
-router.get('/:idMeca', async (req, res) => {
+router.get('/reparationMeca',auth, async (req, res) => {
     try {
-        const repair = await Repair.find({ mecanicienId: req.params.idMeca })
+        const repair = await Repair.find({ mecanicienId: req.userId })
             .populate('vehicleId')
             .populate('clientId');
         res.json(repair)

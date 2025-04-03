@@ -6,7 +6,7 @@ const auth = require('../middleware/authmiddleware');
 // Create vehicle
 router.post('/create', auth, async (req, res) => { //Mila auth
     try {
-        const { userId, nameVehicle, licensePlate , marqueVehicle} = req.body;
+        const { nameVehicle, licensePlate , marqueVehicle} = req.body;
 
         let vehicle = new Vehicle({
             userId: req.userId,
@@ -23,7 +23,7 @@ router.post('/create', auth, async (req, res) => { //Mila auth
             msg: 'Erreur server'
         })
     }
-})
+});
 //liste mon vehicule
 router.get('/myvehicles', auth, async (req, res) => {
   try {
@@ -35,6 +35,24 @@ router.get('/myvehicles', auth, async (req, res) => {
 });
 //Lire toutes les vehicles
 
+
+
+//Supprimer une véhicule
+router.delete('/:id', async (req, res) => {
+    try {
+        const vehicle =await Vehicle.findByIdAndDelete(req.params.id);
+        if (!vehicle) {
+            return res.status(404).json({ message: 'Véhicule non trouvé ou vous n’êtes pas autorisé à le supprimer' });
+        }
+      
+        res.status(200).json({ message: 'Véhicule supprimé avec succès' });
+    }
+    catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+});
 router.get('/', async (req, res) => {
     try {
         const vehicle = await Vehicle.find()
@@ -43,17 +61,5 @@ router.get('/', async (req, res) => {
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-})
-
-//Supprimer une véhicule
-router.delete('/:id', async (req, res) => {
-    try {
-        await Vehicle.findByIdAndDelete(req.params.id)
-    }
-    catch (error) {
-        res.status(400).json({
-            message: error.message
-        })
-    }
-})
+});
 module.exports = router;

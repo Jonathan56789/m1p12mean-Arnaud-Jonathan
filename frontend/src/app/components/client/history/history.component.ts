@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ReparationService } from '../../../services/reparation/reparation.service';
 @Component({
   selector: 'app-history',
   imports: [CommonModule,FormsModule, RouterModule],
@@ -14,10 +15,10 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 export class HistoryComponent implements OnInit{
   repairs: any[] = [];
 
-  constructor(private clientService: ClientService) {}
+  constructor(private repairService: ReparationService) {}
 
   ngOnInit() {
-    this.clientService.getRepairs().subscribe(
+    this.repairService.getHistoryRepairs().subscribe(
       (data) => {
         this.repairs = data;
       },
