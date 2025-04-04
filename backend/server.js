@@ -20,4 +20,5 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/repairs', require('./routes/repairRoutes'));
 app.use('/api/vehicles', require('./routes/vehicleRoute'));
 app.use('/api/appointment',require('./routes/appointmentRoutes'));
+app.use('/api/notifications',require('./routes/notificationRoutes'));
 app.listen(PORT, () => console.log(`Serveur démarré sur le port${PORT}`));
