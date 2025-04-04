@@ -22,31 +22,55 @@
     <!-- Filters -->
     <div class="card">
         <div class="filters">
-            <div class="filter-group">
-                <span class="filter-label">Date de début:</span>
-                <select class="filter-select">
-                    <option value="all">Toutes les dates</option>
-                    <option value="today">Aujourd'hui</option>
-                    <option value="yesterday">Hier</option>
-                    <option value="week">Cette semaine</option>
-                    <option value="month">Ce mois</option>
-                </select>
-            </div>
+
             <div class="filter-group">
                 <span class="filter-label">Mécanicien:</span>
-                <select class="filter-select">
-                    <option value="all">Tous</option>
-                    <option value="jean">Jean Leroy</option>
-                    <option value="sophie">Sophie Dubois</option>
-                    <option value="marc">Marc Laurent</option>
-                    <option value="laura">Laura Martin</option>
-                    <option value="thomas">Thomas Garcia</option>
-                </select>
+                <form [formGroup]="filterForm">
+                    <select class="filter-select" formControlName="mecanicienId">
+                        <option value="all">Tous</option>
+                        <option *ngFor="let meca of mecanicien" [value]="meca._id">
+                            {{meca.name}}
+                        </option>
+                    </select>
+                </form>
+
             </div>
             <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Rechercher une réparation, un véhicule...">
+                <form [formGroup]="searchForm">
+
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Rechercher une réparation, un véhicule..."
+                        formControlName="search">
+
+                </form>
             </div>
+            <div *ngIf="searchedRepair.length > 0" class="search-results-overlay">
+                <ul>
+                    <!-- <li *ngFor="let appointment of filteredAppointments">
+                        {{ appointment.serviceType }} - {{ appointment.date | date:'dd/MM/yyyy' }}
+                    </li> -->
+                    <li *ngFor="let repair of searchedRepair" class="search-result-item">
+                        <div class="result-main-info">
+                            <span class="client-name">{{repair.clientId.name}}</span>
+                            <span class="car-info">{{repair.vehicleId.nameVehicle}}
+                                ({{repair.vehicleId.licensePlate}})</span>
+                            <span class="service-type"> {{ repair.details }}</span>
+                        </div>
+                        <div class="result-date-info">
+                            <div class="date">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>{{ repair.startDate | date:'dd/MM/yyyy' }}</span>
+                            </div>
+                            <div class="time">
+                                <i class="far fa-clock"></i>
+                                <span>{{ repair.startDate | date:'HH:mm' }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
         </div>
     </div>
 
@@ -165,7 +189,7 @@
                                     <td>
                                         <div class="mechanic-info">
                                             <div class="mechanic-avatar">LM</div>
-                                            <div class="mechanic-name">{{repair.mecanicienId.nomComplet}}</div>
+                                            <div class="mechanic-name">{{repair.mecanicienId.name}}</div>
                                         </div>
                                     </td>
                                     <td>{{repair.startDate |

@@ -15,7 +15,7 @@
     <!-- Filters -->
     <div class="card">
         <div class="filters">
-            <div class="filter-group">
+            <!-- <div class="filter-group">
                 <span class="filter-label">Date:</span>
                 <select class="filter-select">
                     <option value="all">Tous</option>
@@ -24,10 +24,40 @@
                     <option value="week">Cette semaine</option>
                     <option value="month">Ce mois</option>
                 </select>
-            </div>
+            </div> -->
             <div class="search-box">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Rechercher un client, un véhicule...">
+                <form [formGroup]="searchForm">
+                    <input type="text" class="search-input" placeholder="Rechercher un service ou voiture"
+                        formControlName="search">
+                </form>
+
+            </div>
+            <!-- Affichage des résultats filtrés -->
+            <div *ngIf="filteredAppointments.length > 0" class="search-results-overlay">
+                <ul>
+                    <!-- <li *ngFor="let appointment of filteredAppointments">
+                        {{ appointment.serviceType }} - {{ appointment.date | date:'dd/MM/yyyy' }}
+                    </li> -->
+                    <li *ngFor="let appointment of filteredAppointments" class="search-result-item">
+                        <div class="result-main-info">
+                            <span class="client-name">{{appointment.clientId.name}}</span>
+                            <span class="car-info">{{appointment.vehicleId.nameVehicle}}
+                                ({{appointment.vehicleId.licensePlate}})</span>
+                            <span class="service-type"> {{ appointment.serviceType }}</span>
+                        </div>
+                        <div class="result-date-info">
+                            <div class="date">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>{{ appointment.date | date:'dd/MM/yyyy' }}</span>
+                            </div>
+                            <div class="time">
+                                <i class="far fa-clock"></i>
+                                <span>{{ appointment.date | date:'HH:mm' }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -91,7 +121,7 @@
                                     <!-- <td><span class="status in-progress">En cours</span></td> -->
                                     <td>
                                         <button type="button" class="btn btn-outline-dark btn-sm"
-                                            (click)="setFormValuesAndSubmit(rdv._id, 'Terminé')">
+                                            (click)="setFormValuesAndSubmit( rdv._id, 'Terminé')">
                                             <i class="fas fa-check me-1"></i>
                                             Marquer comme terminer
                                         </button>
@@ -208,10 +238,9 @@
                                             )">
                                             <i class="fas fa-car-battery"></i> Assigner réparation
                                         </button> -->
-                                        <ng-container *ngIf="!assignedAppointments[rdv._id]; else assignedBadge">
-                                            <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#modalId" 
-                                                (click)="setFormCreateValuesAndSubmit(
+                                        <ng-container *ngIf="rdv.status !== 'Assigné'; else assignedBadge">
+                                            <button type="button" class="btn btn-sm btn-outline-dark"
+                                                data-bs-toggle="modal" data-bs-target="#modalId" (click)="setFormCreateValues(
                                                     rdv.clientId._id,
                                                     rdv.vehicleId._id,
                                                     35000,
@@ -221,7 +250,7 @@
                                                 <i class="fas fa-car-battery"></i> Assigner réparation
                                             </button>
                                         </ng-container>
-                                        
+
                                         <ng-template #assignedBadge>
                                             <span class="badge bg-success">
                                                 <i class="fas fa-check-circle me-1"></i> Assigné
@@ -240,9 +269,10 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
-                                                            <form [formGroup]="formRepair" (submit)="createRepair(rdv._id)">
+                                                            <form [formGroup]="formRepair"
+                                                                (submit)="createRepair(rdv._id)">
                                                                 <div class="mb-4">
-                                                                    
+
                                                                     <label for="mecanicienSelect"
                                                                         class="form-label fw-bold">Sélectionnez un
                                                                         mécanicien</label>
@@ -279,29 +309,16 @@
                                                                         id="commentaire" rows="3"
                                                                         placeholder="Décrivez brièvement votre besoin..."></textarea>
                                                                 </div>
-                                                                <input type="hidden" formControlName="clientId"
-                                                                    [value]="rdv.clientId._id">
-                                                                <input type="hidden" formControlName="vehicleId"
-                                                                    [value]="rdv.vehicleId.nameVehicle">
-                                                                <input type="hidden" formControlName="cost"
-                                                                    value="35000">
-                                                                <input type="hidden" formControlName="details"
-                                                                    value={{rdv.serviceType}}>
-                                                                <button type="submit" class="btn btn-primary shadow">
+                                                                <button type="submit" class="btn btn-primary shadow"
+                                                                    data-bs-dismiss="modal" #closeModal (click)="setFormValuesAndSubmit(
+                                                                   
+                                                                    rdv._id,
+                                                                    'Assigné'
+                                                                )">
                                                                     <i class="bi bi-calendar-check"></i> Confirmer
                                                                 </button>
                                                             </form>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer bg-light">
-                                                        <button type="button" class="btn btn-secondary shadow"
-                                                            data-bs-dismiss="modal">
-                                                            Annuler
-                                                        </button>
-
-                                                        <button type="submit" class="btn btn-primary shadow">
-                                                            <i class="bi bi-calendar-check"></i> Confirmer
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -28,18 +28,38 @@ export class RendezvousManagerComponent {
   mecanicienNonOccupe: any[] = [];
 
   assignedAppointments: { [key: string]: boolean } = {};
+  // Propriété pour le filtre de date
+  selectedDateFilter: string = 'all';
 
-  constructor(private appointmentService: AppointmentService, private userService: UserService ,private reparationService: ReparationService) {
+  // Tableau pour stocker les rendez-vous filtrés (par exemple, pour la tab "En attente de confirmation")
+  filteredAppointments: any[] = [];
+  searchForm: FormGroup = new FormGroup({
+    search: new FormControl('')
+  });
+
+  constructor(private appointmentService: AppointmentService, private userService: UserService, private reparationService: ReparationService) {
 
   }
 
   ngOnInit() {
     this.loadAppointment();
     this.loadMecanicienNonOccupe();
-    this.userService.getProfile().subscribe((data)=>
-      {
-        this.userName=data.user.name;
-      });
+    this.userService.getProfile().subscribe((data) => {
+      this.userName = data.user.name;
+    });
+    // Ecoute les changements sur le champ "search"
+    this.searchForm.get('search')?.valueChanges.subscribe((value: string) => {
+      const term = value ? value.toLowerCase().trim() : '';
+      if (term.length > 0) {
+        // Filtre les rendez-vous dont le serviceType correspond au terme
+        this.filteredAppointments = this.appointments.filter(app =>
+          app.serviceType.toLowerCase().includes(term) || app.vehicleId.nameVehicle.toLowerCase().includes(term)
+        );
+      } else {
+        this.filteredAppointments = [];
+      }
+      console.log("RECHERCHE FILTRE", this.filteredAppointments)
+    });
   }
   loadAppointment() {
     this.appointmentService.getAppointments().subscribe(
@@ -49,11 +69,10 @@ export class RendezvousManagerComponent {
         console.log(this.appointments);
         this.planifiedAppointments = this.appointments.filter(rdv => rdv.status === "En attente"); // EN attente de confirmation
         this.ongoingAppointments = this.appointments.filter(rdv => rdv.status === "Confirmé"); // EN attente de date (déjà confirmé)
-        this.completedAppointments = this.appointments.filter(rdv => rdv.status === "Terminé"); // Terminé
+        this.completedAppointments = this.appointments.filter(rdv => rdv.status === "Terminé" || rdv.status === "Assigné"); // Terminé
         console.log(this.completedAppointments);
 
       }
-
     )
   }
 
@@ -64,7 +83,7 @@ export class RendezvousManagerComponent {
     status: new FormControl('')
   })
 
-  setFormValuesAndSubmit(id: string, status: string) {
+  setFormValuesAndSubmit(id: string, status: string ) {
     this.formAppointment.patchValue({
       id: id,
       status: status
@@ -72,6 +91,8 @@ export class RendezvousManagerComponent {
     console.log("Ici" + this.formAppointment.value.id);
 
     this.updateAppointment();
+    // event.preventDefault();
+
   }
   updateAppointment() {
     const appointmentId = this.formAppointment.value.id;
@@ -119,38 +140,36 @@ export class RendezvousManagerComponent {
   })
 
 
-  setFormCreateValuesAndSubmit(clientId: string, vehicleId: string, cost: number, details: string,rdvId: string) {
+  setFormCreateValues(clientId: string, vehicleId: string, cost: number, details: string, rdvId: string) {
 
     console.log("setFormCreateValuesAndSubmit")
     this.formRepair.patchValue({
-      clientId : clientId, 
-      vehicleId : vehicleId,
+      clientId: clientId,
+      vehicleId: vehicleId,
       // mecanicienId : mecanicienId , 
       // startDate : startDate , 
-      cost : cost,
-      details : details
+      cost: cost,
+      details: details
     })
 
     console.log("Form create repair", this.formRepair.value.mecanicienId)
     this.createRepair(rdvId)
   }
-  createRepair(rdvId : string) {
-    console.log("Create repair" , this.formRepair.value)  
-    
+  createRepair(rdvId: string) {
+    console.log("Create repair", this.formRepair.value)
+
     this.reparationService.createRepair(this.formRepair.value).subscribe(
-      (data)=>{
+      (data) => {
         console.log("Réparation crée avec succès")
 
-         // Assure-toi que l'ID du RDV est dans le formulaire
-        if (rdvId) {
-          this.assignedAppointments[rdvId] = true;
-        }
+
       },
-      (error)=>{
+      (error) => {
         console.error("Erreur")
       }
     )
   }
 
-  
+
+
 }

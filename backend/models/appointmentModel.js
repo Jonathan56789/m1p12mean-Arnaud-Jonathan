@@ -6,7 +6,7 @@ const appointmentSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   serviceType: { type: String, required: true },
   // confirmed: { type: Boolean, default: false },
-  status: { type: String, enum: ['En attente', 'Confirmé', 'Terminé'], default: 'En attente' },
+  status: { type: String, enum: ['En attente', 'Confirmé', 'Terminé' , 'Assigné'], default: 'En attente' },
   details: { type: String }, // Optionnel : pour des notes supplémentaires
 });
 

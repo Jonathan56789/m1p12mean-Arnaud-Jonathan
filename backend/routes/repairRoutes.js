@@ -56,35 +56,35 @@ router.get('/myrepairs', auth, async (req, res) => {
         }
 
 
-        
 
-    const repairs = await Repair.find(filter).populate('vehicleId')
-                                             .populate('mecanicienId');
-    res.json(repairs);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des réparations:', error);
-    res.status(500).json({ message: 'Erreur serveur' });
-  }
+
+        const repairs = await Repair.find(filter).populate('vehicleId')
+            .populate('mecanicienId');
+        res.json(repairs);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des réparations:', error);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
 
 });
 //history
 router.get('/history', auth, async (req, res) => {
     try {
-      // Construire le filtre de base
-      const filter = { clientId: req.userId };
-  
-      // Si showAll est false, ajouter la condition pour exclure "Terminé"
-        filter.status = 'Terminé' ;
-      
-  
-      const repairs = await Repair.find(filter).populate('vehicleId')
-                                               .populate('mecanicienId');
-      res.json(repairs);
+        // Construire le filtre de base
+        const filter = { clientId: req.userId };
+
+        // Si showAll est false, ajouter la condition pour exclure "Terminé"
+        filter.status = 'Terminé';
+
+
+        const repairs = await Repair.find(filter).populate('vehicleId')
+            .populate('mecanicienId');
+        res.json(repairs);
     } catch (error) {
-      console.error('Erreur lors de la récupération des réparations:', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+        console.error('Erreur lors de la récupération des réparations:', error);
+        res.status(500).json({ message: 'Erreur serveur' });
     }
-  });
+});
 //Lire toutes les réparations
 
 router.get('/', async (req, res) => {
@@ -104,7 +104,21 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const repair = await Repair.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(repair)
+        if(repair.status == "Terminé"){
+            const updatedInfoSup = await Infosup.findOneAndUpdate(
+                { mecanicienId: repair.mecanicienId }, // Critère de recherche
+                {
+                    $set: {
+                        status: 'non-occupé'
+                    }
+                },
+                {
+                    upsert: true, // Crée le document s'il n'existe pas
+                    // new: true
+                }
+            );
+        }
+        res.json(repair.status)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
@@ -112,7 +126,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //Get réparation par mécanicien
-router.get('/reparationMeca',auth, async (req, res) => {
+router.get('/reparationMeca', auth, async (req, res) => {
     try {
         const repair = await Repair.find({ mecanicienId: req.userId })
             .populate('vehicleId')
