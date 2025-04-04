@@ -12,13 +12,20 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/profile`);
   }
 
-
+  // get mécanicien non occupé
   getMecanonOccupe() : Observable<any>{
     return this.http.get(`${this.apiUrl}/infosup`)
   }
   // Nouvelle méthode pour mettre à jour le profil
   updateProfile(userData: { name?: string; email?: string }): Observable<any> {
+
     return this.http.put(`${this.apiUrl}/profile`, userData);
+  }
+  //get all mécanicien
+  getAllMechanics() : Observable<any>{
+    return this.http.get(`${this.apiUrl}/listuser/mecanicien`)
+
+    
 
   }
 }
