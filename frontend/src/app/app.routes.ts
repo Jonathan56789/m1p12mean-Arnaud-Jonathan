@@ -77,6 +77,7 @@ export const routes: Routes = [
     {
         path: 'manager/dashboard', 
         component: DashboardManagerComponent,
+        canActivate: [AuthGard],
         title: 'Dasboard - Manager',
         children:[
             {
