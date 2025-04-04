@@ -3,6 +3,7 @@ import { ClientService } from '../../../services/client.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NotificationService } from '../../../services/notification/notification.service';
 @Component({
   standalone:true,
   selector: 'app-notifications',
@@ -14,12 +15,12 @@ export class NotificationsComponent implements OnInit{
   notifications: any[] = [];
   unreadCount: number = 0;
 
-  constructor(private clientService: ClientService) {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.clientService.getNotifications().subscribe((data) => {
+    this.notificationService.getNotifications().subscribe((data) => {
       this.notifications = data;
-      this.unreadCount = data.filter((n:any) => !n.read).length;
+     // this.unreadCount = data.filter((n:any) => !n.read).length;
     });
   }
 

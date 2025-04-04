@@ -1,30 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReparationService {
-  private apiUrl = 'http://localhost:5000/api/repairs';
-  private token = localStorage.getItem('token');
+  private apiUrl = environment.apiUrl+'/repairs';
   constructor(private http: HttpClient) { }
-
-
-
   getAllRepairs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`)
   }
 
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-  }
   getRepairsByMechanics() : Observable<any[]>{
-
-
-    return this.http.get<any[]>(`${this.apiUrl}/reparationMeca`, { headers: this.getHeaders() });
-
+    return this.http.get<any[]>(`${this.apiUrl}/reparationMeca`);
   }
 
   updateRepair(id: string, updatedData: { status: string }): Observable<any> {
@@ -38,7 +28,7 @@ export class ReparationService {
   }
     // Récupérer status des réparations
   getRepairs(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/myrepairs`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/myrepairs`);
   }
 
   createRepair(repair: any) : Observable<any>{
@@ -46,7 +36,7 @@ export class ReparationService {
   }
   // Récupérer l'historique des réparations
   getHistoryRepairs(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/history`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/history`);
 
   }
 }

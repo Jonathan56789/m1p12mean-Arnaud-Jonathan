@@ -42,7 +42,8 @@ router.post('/', auth, async (req, res) => {
     if (!vehicleId || !date || !serviceType) {
       return res.status(400).json({ message: 'Tous les champs sont requis' });
     }
-
+    // Trouver le manager dans la base de données
+    
     const appointment = new Appointment({
       clientId: req.userId,
       vehicleId,
@@ -50,13 +51,18 @@ router.post('/', auth, async (req, res) => {
       serviceType
     });
     await appointment.save();
-
-    await new Notification({
-      clientId: req.userId,
-      message: 'Rendez-vous enregistré'
-    }).save();
-
     res.status(201).json({ message: 'Rendez-vous créé avec succès', appointment });
+    // const manager = await User.findOne({ role: 'manager' });
+    // if (!manager) {
+    //   return res.status(404).json({ message: 'Manager introuvable' });
+    // }
+    // await new Notification({
+    //   // receiverId: '67ef83925fdf2bdda342ce15',
+    //   receiverId: manager._id,
+    //   message: 'Rendez-vous enregistré'
+    // }).save();
+
+    
   } catch (error) {
     res.status(500).json({ message: 'Erreur serveur', error });
   }

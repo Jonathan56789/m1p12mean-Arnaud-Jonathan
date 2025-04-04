@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:5000/api/users';
+  private apiUrl = environment.apiUrl+'/users';
 
     constructor(private http: HttpClient) {}
 
@@ -15,11 +16,13 @@ export class AuthService {
     }
 
     saveToken(token: string) {
-        localStorage.setItem('token', token);
+        // localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
     }
 
     getToken() {
-        return localStorage.getItem('token');
+        // return localStorage.getItem('token');
+        return sessionStorage.getItem('token');
     }
       // Vérifie si l'utilisateur est connecté
     isAuthenticated(): boolean {
